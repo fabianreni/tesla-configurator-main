@@ -1,11 +1,12 @@
+<span>Step 1: choose your Model and Color </span>
 <div>
-    Model:
+    <span> Model:</span>
     <select [(ngModel)]="selectedTeslaModelCode" (change)="onModelCodeChange()">
         <ng-container *ngFor="let model of teslaModels">
             <option [value]="model.code">{{model.description}}</option>
         </ng-container>
     </select>
-    Color:
+    <span>Color:</span>
     <select [(ngModel)]="selectedTeslaColorCode">
         <ng-container *ngIf="selectedTeslaModel">
             <ng-container *ngFor="let color of selectedTeslaModel.colors">
