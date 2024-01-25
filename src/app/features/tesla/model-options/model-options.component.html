@@ -1,4 +1,7 @@
-<span>Step 2: Select your config and options </span>
+<div>
+    <span>Step 2: Select your config and options </span>
+</div>
+
 <div *ngIf="teslaType && teslaType.configs" class="options-container">
     <span> Config:</span>
     <select [(ngModel)]="selectedTeslaTypeConfigId" (change)="onTeslaTypeConfigChange()">
