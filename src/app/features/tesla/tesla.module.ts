@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { TeslaRoutingModule } from './tesla-routing.module';
+import { TeslaConfigComponent } from './tesla-config/tesla-config.component';
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
     TeslaRoutingModule
+  ],
+  exports:[
+    TeslaConfigComponent
   ]
 })
 export class TeslaModule { }

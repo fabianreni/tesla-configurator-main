@@ -1,16 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AsyncPipe, CommonModule, JsonPipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
+import { TeslaConfigComponent } from './features/tesla/tesla-config/tesla-config.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    AsyncPipe, JsonPipe,
-    HttpClientModule,
     CommonModule,
-    FormsModule
+    RouterOutlet,
+    TeslaConfigComponent
   ],
   templateUrl: 'app.component.html',
 })

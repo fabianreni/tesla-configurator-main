@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
 
     {
-        path: '/',
+        path: '',
         loadChildren: () =>
             import('./features/tesla/tesla-routing.module')
                 .then(m => m.TeslaRoutingModule)
