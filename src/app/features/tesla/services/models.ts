@@ -1,7 +1,7 @@
 export interface TeslaModel {
     code: string;
     description: string;
-    colors: Config[];
+    colors: Color[];
 }
 
 export interface Color {

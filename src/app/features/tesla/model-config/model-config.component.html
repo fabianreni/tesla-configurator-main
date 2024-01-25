@@ -1,1 +1,18 @@
-<p>model-config works!</p>
+<div>
+    Model:
+    <select [(ngModel)]="selectedTeslaModelCode" (change)="onModelCodeChange()">
+        <ng-container *ngFor="let model of teslaModels">
+            <option [value]="model.code">{{model.description}}</option>
+        </ng-container>
+    </select>
+    Color:
+    <select [(ngModel)]="selectedTeslaColorCode">
+        <ng-container *ngIf="selectedTeslaModel">
+            <ng-container *ngFor="let color of selectedTeslaModel.colors">
+                <option [value]="color.code">{{color.description}}</option>
+            </ng-container>
+        </ng-container>
+    </select>
+</div>
+
+<img src="{{ initializeImageUrl() }}" />

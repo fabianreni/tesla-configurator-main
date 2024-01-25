@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TeslaConfigComponent } from './features/tesla/tesla-config/tesla-config.component';
@@ -7,9 +6,8 @@ import { TeslaConfigComponent } from './features/tesla/tesla-config/tesla-config
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,
     RouterOutlet,
-    TeslaConfigComponent
+    TeslaConfigComponent,
   ],
   templateUrl: 'app.component.html',
 })
