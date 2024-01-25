@@ -24,3 +24,14 @@ export interface Config {
     speed: number;
     price: number;
 }
+
+export interface ConfiguredTesla {
+    modelCode: string;
+    modelDescription: string;
+    modelColore: Color
+    typeCode: string;
+    typeConfig: Config;
+    towHitch: boolean;
+    yoke: boolean;
+}
+
