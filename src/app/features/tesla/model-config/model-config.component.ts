@@ -57,7 +57,6 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
 
   onModelCodeChange() {
     const findedModel = this.teslaModels.find((model: TeslaModel) => {
-      if (this.selectedTeslaModelCode === null) { return null }
       return model.code === this.selectedTeslaModelCode
     });
 
@@ -77,10 +76,6 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (!this.subSink) {
-      return;
-    }
-
     if (this.subSink.closed) {
       return;
     }
