@@ -40,7 +40,6 @@ export class ModelOptionsComponent implements OnInit, OnDestroy {
 
     const subscription = teslaType$.subscribe((teslaType: TeslaType) => {
       self.teslaType = teslaType;
-      console.log(teslaType)
     });
 
     this.subSink.add(subscription);

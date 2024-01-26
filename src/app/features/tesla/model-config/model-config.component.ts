@@ -35,12 +35,10 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
 
   private initializeTeslaModels(): void {
     const teslaModels$ = this.modelConfigService.getTeslaModelsByApi();
-
     const self = this;
 
     const subscription = teslaModels$.subscribe((teslaModels) => {
       self.teslaModels = teslaModels;
-      console.log(self.teslaModels);
     });
 
     this.subSink.add(subscription);
