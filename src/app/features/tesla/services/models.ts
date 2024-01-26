@@ -1,4 +1,4 @@
-export class TeslaModel {
+export class TeslaModelConfig {
     code: string;
     description: string;
     colors: Color[];
@@ -16,7 +16,7 @@ export interface Color {
     price: number;
 }
 
-export interface TeslaType {
+export interface TeslaModelType {
     code: string;
     configs: Config[];
     towHitch: boolean;
@@ -53,13 +53,8 @@ export class ConfiguredTesla {
     }
 
     setTotalPrice(): void {
-        this.totalCost = 0;
-        if (this.yoke) {
-            this.totalCost += this.extraCost;
-        }
-        if (this.towHitch) {
-            this.totalCost += this.extraCost;
-        }
+        this.resetTotalPrice();
+        this.totalCost += this.totalExtraCost();
 
         if (this.modelColor) {
             this.totalCost += this.modelColor.price;
@@ -68,6 +63,23 @@ export class ConfiguredTesla {
         if (this.typeConfig) {
             this.totalCost += this.typeConfig.price;
         }
+    }
+
+    private totalExtraCost(): number {
+        let totalExtraCost = 0;
+
+        if (this.yoke) {
+            totalExtraCost += this.extraCost;
+        }
+        if (this.towHitch) {
+            totalExtraCost += this.extraCost;
+        }
+
+        return totalExtraCost;
+    }
+
+    private resetTotalPrice(): void {
+        this.totalCost = 0;
     }
 
     getIsModelConfigSelected(): boolean {

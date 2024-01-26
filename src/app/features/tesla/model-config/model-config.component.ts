@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Color, ConfiguredTesla, TeslaModel } from '../services/models';
+import { Color, ConfiguredTesla, TeslaModelConfig } from '../services/models';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,9 +19,9 @@ import { ConfiguredTeslaService } from '../services/configured-tesla.service';
 export class ModelConfigComponent implements OnInit, OnDestroy {
 
   configuredTesla: ConfiguredTesla | null = null;
-  teslaModels: TeslaModel[] = [];
+  teslaModels: TeslaModelConfig[] = [];
   selectedTeslaModelCode: string | null = null;
-  selectedTeslaModel: TeslaModel | null = null
+  selectedTeslaModel: TeslaModelConfig | null = null
   selectedTeslaColorCode: string | null = null;
 
   private subSink: Subscription = new Subscription();
@@ -87,8 +87,8 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     this.configuredTeslaService.setSelectedTeslaModel(this.selectedTeslaModel);
   }
 
-  private findSelectedModel(): TeslaModel | null {
-    const findedModel = this.teslaModels.find((model: TeslaModel) => {
+  private findSelectedModel(): TeslaModelConfig | null {
+    const findedModel = this.teslaModels.find((model: TeslaModelConfig) => {
       return model.code === this.selectedTeslaModelCode
     });
 

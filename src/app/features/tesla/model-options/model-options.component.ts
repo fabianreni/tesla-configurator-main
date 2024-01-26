@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { Config, ConfiguredTesla, TeslaType } from '../services/models';
+import { Config, ConfiguredTesla, TeslaModelType } from '../services/models';
 import { ModelConfigService } from '../services/model-config.service';
 import { ConfiguredTeslaService } from '../services/configured-tesla.service';
 
@@ -16,7 +16,7 @@ import { ConfiguredTeslaService } from '../services/configured-tesla.service';
   styleUrl: './model-options.component.scss'
 })
 export class ModelOptionsComponent implements OnInit, OnDestroy {
-  teslaType: TeslaType | null = null;
+  teslaType: TeslaModelType | null = null;
   selectedTeslaTypeConfig: Config | null = null;
   selectedTeslaTypeConfigId: number | null = null;
   configuredTesla: ConfiguredTesla | null = null;
@@ -49,7 +49,7 @@ export class ModelOptionsComponent implements OnInit, OnDestroy {
 
     const self = this;
 
-    const subscription = teslaType$.subscribe((teslaType: TeslaType) => {
+    const subscription = teslaType$.subscribe((teslaType: TeslaModelType) => {
       self.teslaType = teslaType;
       this.restoreDataFromCaches();
     });

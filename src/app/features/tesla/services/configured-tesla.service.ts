@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Color, Config, ConfiguredTesla, TeslaModel } from './models';
+import { Color, Config, ConfiguredTesla, TeslaModelConfig } from './models';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class ConfiguredTeslaService {
     this.configuration.next(this.configuredTesla)
   }
 
-  setSelectedTeslaModel(selectedTeslaModel: TeslaModel): void {
+  setSelectedTeslaModel(selectedTeslaModel: TeslaModelConfig): void {
     this.configuredTesla.modelCode = selectedTeslaModel.code;
     this.configuredTesla.modelDescription = selectedTeslaModel.description;
     this.configuredTesla.modelColor = null;

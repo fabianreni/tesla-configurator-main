@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TeslaModel, TeslaType } from './models';
+import { TeslaModelConfig, TeslaModelType } from './models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,17 +12,17 @@ export class ModelConfigService {
     public httpClient: HttpClient
   ) { }
 
-  public getTeslaModelsByApi(): Observable<TeslaModel[]> {
+  public getTeslaModelsByApi(): Observable<TeslaModelConfig[]> {
     const url = '/models';
-    const rawTeslaModelData$ = this.httpClient.get<TeslaModel[]>(url);
+    const rawTeslaModelData$ = this.httpClient.get<TeslaModelConfig[]>(url);
 
     return rawTeslaModelData$;
   }
 
-  public getTeslaTypesDataByApi(code: string): Observable<TeslaType> {
+  public getTeslaTypesDataByApi(code: string): Observable<TeslaModelType> {
     let url = '/options/:id';
     url = url.replace(':id', code)
-    const rawTeslaTypeData$ = this.httpClient.get<TeslaType>(url);
+    const rawTeslaTypeData$ = this.httpClient.get<TeslaModelType>(url);
 
     return rawTeslaTypeData$;
   }
