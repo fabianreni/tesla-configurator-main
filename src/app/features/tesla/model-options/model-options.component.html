@@ -1,7 +1,6 @@
 <div>
     <h1>Step 2: Select your config and options </h1>
 </div>
-
 <div *ngIf="teslaType && teslaType.configs" class="options-container">
     <div>
         <span> Config:</span>
@@ -20,11 +19,11 @@
 
     <div>
         <span> Tow hitch? </span>
-        <input type="checkbox" [(ngModel)]="teslaType.towHitch">
+        <input type="checkbox" (change)="onTeslaTypeConfigChange()" [(ngModel)]="teslaType.towHitch">
     </div>
 
     <div>
         <span> Yoke steering wheel?</span>
-        <input type="checkbox" [(ngModel)]="teslaType.yoke">
+        <input type="checkbox" (change)="onTeslaTypeConfigChange()" [(ngModel)]="teslaType.yoke">
     </div>
 </div>

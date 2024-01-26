@@ -32,14 +32,25 @@ export interface Config {
 }
 
 export class ConfiguredTesla {
-    modelCode: string | null = null;
-    modelDescription: string | null = null;
-    modelColor: Color | null = null;
-    typeConfig: Config | null = null;
-    towHitch: boolean | null = null;
-    yoke: boolean | null = null;
-    totalCost: number = 0;
-    extraCost: number = 1000;
+    modelCode: string | null;
+    modelDescription: string | null;
+    modelColor: Color | null;
+    typeConfig: Config | null;
+    towHitch: boolean;
+    yoke: boolean;
+    totalCost: number;
+    extraCost: number;
+
+    constructor() {
+        this.modelCode = null;
+        this.modelDescription = null;
+        this.modelColor = null;
+        this.typeConfig = null;
+        this.towHitch = false;
+        this.yoke = false;
+        this.totalCost = 0;
+        this.extraCost = 1000;
+    }
 
     setTotalPrice(): void {
         if (this.yoke) {

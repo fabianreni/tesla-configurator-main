@@ -19,8 +19,8 @@ export class ModelOptionsComponent implements OnInit, OnDestroy {
   teslaType: TeslaType | null = null;
   selectedTeslaTypeConfig: Config | null = null;
   selectedTeslaTypeConfigId: number | null = null;
+  configuredTesla: ConfiguredTesla | null = null;
 
-  private configuredTesla: ConfiguredTesla | null = null;
   private subSink: Subscription = new Subscription();
 
   constructor(
@@ -51,9 +51,42 @@ export class ModelOptionsComponent implements OnInit, OnDestroy {
 
     const subscription = teslaType$.subscribe((teslaType: TeslaType) => {
       self.teslaType = teslaType;
+      this.restoreDataFromCaches();
     });
 
     this.subSink.add(subscription);
+  }
+
+  private restoreDataFromCaches(): void {
+    if (!this.configuredTesla || !this.configuredTesla.typeConfig) { return; }
+    this.selectedTeslaTypeConfigId = this.configuredTesla.typeConfig.id;
+
+    if (!this.teslaType) { return; }
+    this.teslaType.towHitch = this.configuredTesla.towHitch;
+    this.teslaType.yoke = this.configuredTesla.yoke;
+
+    const findedConfig = this.findSelectedConfig()
+
+    if (!findedConfig) {
+      return;
+    }
+
+    this.selectedTeslaTypeConfig = findedConfig;
+  }
+
+  private findSelectedConfig(): Config | null {
+    if (!this.teslaType) {
+      return null;
+    }
+    const findedConfig = this.teslaType.configs.find((teslaTypeConfig: Config) => {
+      return teslaTypeConfig.id == this.selectedTeslaTypeConfigId
+    });
+
+    if (!findedConfig) {
+      return null;
+    }
+
+    return findedConfig;
   }
 
   onTeslaTypeConfigChange(): void {
@@ -61,12 +94,9 @@ export class ModelOptionsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const findedConfig = this.teslaType?.configs.find((teslaTypeConfig: Config) => {
-      return teslaTypeConfig.id == this.selectedTeslaTypeConfigId
-    });
+    const findedConfig = this.findSelectedConfig()
 
     if (!findedConfig) {
-      this.selectedTeslaTypeConfig = null;
       return;
     }
 
