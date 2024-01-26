@@ -17,8 +17,8 @@ export class ModelOptionConfigGuardService {
 
     if (isConfigSelected) {
       return true;
-    } else {
-      return this.router.parseUrl('');
     }
+
+    return false
   }
 }

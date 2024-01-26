@@ -27,6 +27,7 @@ export class ConfiguredTeslaService {
     this.configuredTesla.modelCode = selectedTeslaModel.code;
     this.configuredTesla.modelDescription = selectedTeslaModel.description;
     this.configuredTesla.modelColor = null;
+    this.configuredTesla.typeConfig = null;
     this.configuredTesla.setTotalPrice();
     this.setConfiguredTesla();
   }
