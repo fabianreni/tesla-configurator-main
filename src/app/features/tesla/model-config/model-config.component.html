@@ -4,19 +4,21 @@
 
 <div>
     <span> Model:</span>
-    <select #modelSelect [(ngModel)]="selectedTeslaModelCode" (change)="onModelCodeChange()">
+    <select #modelSelect (change)="onModelCodeChange(modelSelect.value)">
         <option [value]="null" selected>Select model</option>
         <ng-container *ngFor="let model of teslaModels">
-            <option [value]="model.code">{{model.description}}</option>
+            <option [value]="model.code" [selected]="configuredTesla?.modelCode === model.code">{{model.description}}
+            </option>
         </ng-container>
     </select>
 
     <span>Color:</span>
-    <select #colorSelect [(ngModel)]="selectedTeslaColorCode" (change)="onModelColorChange()">
+    <select #colorSelect (change)="onModelColorChange(colorSelect.value)">
         <option [value]="null" selected>Select color</option>
         <ng-container *ngIf="selectedTeslaModel">
             <ng-container *ngFor="let color of selectedTeslaModel.colors">
-                <option [value]="color.code">{{color.description}}</option>
+                <option [value]="color.code" [selected]="configuredTesla?.modelColor?.code === color.code">
+                    {{color.description}}</option>
             </ng-container>
         </ng-container>
     </select>

@@ -21,9 +21,8 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
 
   configuredTesla: ConfiguredTesla | null = null;
   teslaModels: TeslaModelConfig[] = [];
-  selectedTeslaModelCode: string | null = null;
+
   selectedTeslaModel: TeslaModelConfig | null = null
-  selectedTeslaColorCode: string | null = null;
 
   private subSink: Subscription = new Subscription();
   constructor(
@@ -62,9 +61,7 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
   private restoreDataFromCaches(): void {
     if (!this.configuredTesla) { return; }
 
-    this.selectedTeslaModelCode = this.configuredTesla.modelCode;
-
-    const findedModel = this.findSelectedModel();
+    const findedModel = this.findSelectedModel(this.configuredTesla.modelCode);
     if (!findedModel) {
       return;
     }
@@ -72,28 +69,33 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     this.selectedTeslaModel = findedModel;
 
     if (!this.configuredTesla.modelColor) { return; }
-
-    this.selectedTeslaColorCode = this.configuredTesla.modelColor.code;
   }
 
-  onModelCodeChange() {
-    const findedModel = this.findSelectedModel();
+  onModelCodeChange(selectedModel: string | null): void {
+    console.log(selectedModel)
+    if (!selectedModel) {
+      return;
+    }
+
+    const findedModel = this.findSelectedModel(selectedModel);
 
     if (!findedModel) {
       this.configuredTeslaService.resetConfiguredTesla();
-      this.selectedTeslaColorCode = null;
       this.selectedTeslaModel = null;
       return;
     }
 
     this.selectedTeslaModel = findedModel;
-    this.selectedTeslaColorCode = null;
     this.configuredTeslaService.setSelectedTeslaModel(this.selectedTeslaModel);
   }
 
-  private findSelectedModel(): TeslaModelConfig | null {
+  private findSelectedModel(selectedModel: string | null): TeslaModelConfig | null {
+    if (!selectedModel) {
+      return null;
+    }
+
     const findedModel = this.teslaModels.find((model: TeslaModelConfig) => {
-      return model.code === this.selectedTeslaModelCode
+      return model.code === selectedModel;
     });
 
     if (!findedModel) {
@@ -103,9 +105,10 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     return findedModel;
   }
 
-  onModelColorChange() {
+  onModelColorChange(selectedColor: string | null): void {
+    if (!selectedColor) { return; }
     const findedColor = this.selectedTeslaModel?.colors.find((color: Color) => {
-      return color.code === this.selectedTeslaColorCode
+      return color.code === selectedColor
     });
 
     if (!findedColor) {
