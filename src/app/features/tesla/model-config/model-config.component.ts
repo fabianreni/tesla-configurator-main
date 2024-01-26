@@ -72,7 +72,6 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
   }
 
   onModelCodeChange(selectedModel: string | null): void {
-    console.log(selectedModel)
     if (!selectedModel) {
       return;
     }

@@ -17,9 +17,9 @@ import { ConfiguredTesla } from '../services/configured-tesla-model';
   styleUrl: './model-type.component.scss'
 })
 export class ModelTypeComponent implements OnInit, OnDestroy {
+
   teslaType: TeslaModelType | null = null;
   selectedTeslaTypeConfig: Config | null = null;
-  selectedTeslaTypeConfigId: number | null = null;
   configuredTesla: ConfiguredTesla | null = null;
 
   private subSink: Subscription = new Subscription();
@@ -60,13 +60,13 @@ export class ModelTypeComponent implements OnInit, OnDestroy {
 
   private restoreDataFromCaches(): void {
     if (!this.configuredTesla || !this.configuredTesla.typeConfig) { return; }
-    this.selectedTeslaTypeConfigId = this.configuredTesla.typeConfig.id;
 
     if (!this.teslaType) { return; }
+
     this.teslaType.towHitch = this.configuredTesla.towHitch;
     this.teslaType.yoke = this.configuredTesla.yoke;
 
-    const findedConfig = this.findSelectedConfig()
+    const findedConfig = this.findSelectedConfig(this.configuredTesla.typeConfig.id)
 
     if (!findedConfig) {
       return;
@@ -75,12 +75,16 @@ export class ModelTypeComponent implements OnInit, OnDestroy {
     this.selectedTeslaTypeConfig = findedConfig;
   }
 
-  private findSelectedConfig(): Config | null {
+  private findSelectedConfig(selectedTeslaTypeConfigId: number | null): Config | null {
+    if (!selectedTeslaTypeConfigId) {
+      return null;
+    }
+
     if (!this.teslaType) {
       return null;
     }
     const findedConfig = this.teslaType.configs.find((teslaTypeConfig: Config) => {
-      return teslaTypeConfig.id == this.selectedTeslaTypeConfigId
+      return teslaTypeConfig.id == selectedTeslaTypeConfigId
     });
 
     if (!findedConfig) {
@@ -90,12 +94,16 @@ export class ModelTypeComponent implements OnInit, OnDestroy {
     return findedConfig;
   }
 
-  onTeslaTypeConfigChange(): void {
-    if (!this.teslaType) {
+  onTeslaTypeConfigChange(selectedTeslaTypeConfigId: string | null): void {
+    if (!selectedTeslaTypeConfigId) {
       return;
     }
 
-    const findedConfig = this.findSelectedConfig()
+    if (!this.teslaType) {
+      return;
+    }
+    const selectedTeslaTypeConfigIdNumber = Number(selectedTeslaTypeConfigId);
+    const findedConfig = this.findSelectedConfig(selectedTeslaTypeConfigIdNumber)
 
     if (!findedConfig) {
       this.configuredTeslaService.resetType();
@@ -106,6 +114,14 @@ export class ModelTypeComponent implements OnInit, OnDestroy {
     this.selectedTeslaTypeConfig = findedConfig;
     this.configuredTeslaService.setSelectedTeslaType(
       this.selectedTeslaTypeConfig, this.teslaType.towHitch, this.teslaType.yoke);
+  }
+
+  onIncludeTowChange(includeTow: boolean): void {
+    console.log(includeTow)
+  }
+
+  onIncludeYokeChange(includeYoke: boolean): void {
+    console.log(includeYoke);
   }
 
   ngOnDestroy(): void {

@@ -4,10 +4,11 @@
 <div *ngIf="teslaType && teslaType.configs" class="options-container">
     <div>
         <span> Config:</span>
-        <select #configSelect [(ngModel)]="selectedTeslaTypeConfigId" (change)="onTeslaTypeConfigChange()">
+        <select #configSelect (change)="onTeslaTypeConfigChange(configSelect.value)">
             <option [value]="null" selected>Select model</option>
             <ng-container *ngFor="let config of teslaType.configs">
-                <option [value]="config.id">{{config.description}}</option>
+                <option [value]="config.id" [selected]="configuredTesla?.typeConfig?.id === config.id">
+                    {{config.description}}</option>
             </ng-container>
         </select>
     </div>
@@ -17,13 +18,13 @@
             {{selectedTeslaTypeConfig.price | currency: 'USD' }} </span>
     </ng-container>
 
-    <div>
+    <!-- <div>
         <span> Tow hitch? </span>
-        <input #includeTow type="checkbox" (change)="onTeslaTypeConfigChange()" [(ngModel)]="teslaType.towHitch">
+        <input #includeTow type="checkbox" (change)="onIncludeTowChange(includeTow.value)" [value]="teslaType.towHitch">
     </div>
 
     <div>
         <span> Yoke steering wheel?</span>
-        <input #includeYoke type="checkbox" (change)="onTeslaTypeConfigChange()" [(ngModel)]="teslaType.yoke">
-    </div>
+        <input #includeYoke type="checkbox" (change)="onIncludeYokeChange(includeYoke.value)" [value]="teslaType.yoke">
+    </div> -->
 </div>
