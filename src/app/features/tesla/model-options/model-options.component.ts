@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { Config, TeslaType } from '../services/models';
+import { Config, ConfiguredTesla, TeslaType } from '../services/models';
 import { ModelConfigService } from '../services/model-config.service';
 import { ConfiguredTeslaService } from '../services/configured-tesla.service';
 
@@ -16,12 +16,11 @@ import { ConfiguredTeslaService } from '../services/configured-tesla.service';
   styleUrl: './model-options.component.scss'
 })
 export class ModelOptionsComponent implements OnInit, OnDestroy {
-  @Input() modelCode?: string;
-
   teslaType: TeslaType | null = null;
   selectedTeslaTypeConfig: Config | null = null;
   selectedTeslaTypeConfigId: number | null = null;
 
+  private configuredTesla: ConfiguredTesla | null = null;
   private subSink: Subscription = new Subscription();
 
   constructor(
@@ -29,12 +28,24 @@ export class ModelOptionsComponent implements OnInit, OnDestroy {
     private configuredTeslaService: ConfiguredTeslaService) { }
 
   ngOnInit() {
-    this.initializeTeslaType();
+    this.initializeConfiguredTesla();
+  }
+
+  public initializeConfiguredTesla(): void {
+    const configuredTesla$ = this.configuredTeslaService.configuration$;
+
+    const self = this;
+    const subscription = configuredTesla$.subscribe((configuredTesla) => {
+      self.configuredTesla = configuredTesla;
+      this.initializeTeslaType();
+    });
+
+    this.subSink.add(subscription);
   }
 
   private initializeTeslaType(): void {
-    if (!this.modelCode) { return; }
-    const teslaType$ = this.modelConfigService.getTeslaTypesDataByApi(this.modelCode);
+    if (!this.configuredTesla || !this.configuredTesla.modelCode) { return; }
+    const teslaType$ = this.modelConfigService.getTeslaTypesDataByApi(this.configuredTesla.modelCode);
 
     const self = this;
 
@@ -54,7 +65,6 @@ export class ModelOptionsComponent implements OnInit, OnDestroy {
       return teslaTypeConfig.id == this.selectedTeslaTypeConfigId
     });
 
-    console.log(findedConfig)
     if (!findedConfig) {
       this.selectedTeslaTypeConfig = null;
       return;

@@ -1,63 +1,51 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { ConfiguredTeslaService } from '../../features/tesla/services/configured-tesla.service';
+import { Subscription } from 'rxjs';
 import { ConfiguredTesla } from '../../features/tesla/services/models';
-import { ImageService } from '../tesla-image-viewer/image.service';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [],
+  imports: [NgFor, RouterLink],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
 })
-export class NavigationComponent implements OnInit, OnDestroy {
-  private configuredTesla: ConfiguredTesla | null = null;
+export class NavigationComponent implements OnInit {
+
+  routerLinks: string[] = [];
+
+  isModelConfigSelected = false;
+  isModelTypeSelected = false;
+
   private subSink: Subscription = new Subscription();
 
-  constructor(
-    private configuredTeslaService: ConfiguredTeslaService,
-    private imageService: ImageService,
-    private router: Router) {
+  constructor(private configuredTeslaService: ConfiguredTeslaService) {
   }
 
   ngOnInit() {
+    this.initializeConfiguredTesla();
+    this.initializeRouterLinks();
+  }
+
+  public initializeConfiguredTesla(): void {
     const configuredTesla$ = this.configuredTeslaService.configuration$;
 
     const self = this;
-    const subscription = configuredTesla$.subscribe((configuredTesla) => {
-      self.configuredTesla = configuredTesla;
+    const subscription = configuredTesla$.subscribe((configuredTesla: ConfiguredTesla) => {
+      self.isModelConfigSelected = configuredTesla.getIsModelConfigSelected();
+      self.isModelTypeSelected = configuredTesla.getIsModelTypeSelected();
     });
 
     this.subSink.add(subscription);
   }
 
-  public openTeslaModelConfig(): void {
-    this.router.navigate(['/config/model']);
-  }
+  private initializeRouterLinks(): void {
+    const step1Url = "/config/model";
+    const step3Url = "/config/summary";
+    const step2Url = '/config/options/';
 
-  public openModelOptionsConfig(): void {
-    let url = '/config/options/:modelCode';
-
-    if (this.configuredTesla === null || this.configuredTesla.modelCode === null) {
-      return;
-    }
-
-    url = url.replace(':modelCode', this.configuredTesla.modelCode)
-
-    this.router.navigate([url]);
-  }
-
-  public openConfigSummaryConfig(): void {
-    this.router.navigate(['/config/summary']);
-  }
-
-  ngOnDestroy(): void {
-    if (this.subSink.closed) {
-      return;
-    }
-
-    this.subSink.unsubscribe();
+    this.routerLinks.push(step1Url, step2Url, step3Url);
   }
 }

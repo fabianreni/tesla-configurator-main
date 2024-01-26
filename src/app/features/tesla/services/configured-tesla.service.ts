@@ -44,4 +44,20 @@ export class ConfiguredTeslaService {
     this.configuredTesla.setTotalPrice();
     this.setConfiguredTesla();
   }
+
+  public isModelConfigSelected(): boolean {
+    if (this.configuredTesla.modelCode && this.configuredTesla.modelCode) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public isTypeConfigSelected(): boolean {
+    if (this.configuredTesla.typeConfig) {
+      return true;
+    }
+
+    return false;
+  }
 }

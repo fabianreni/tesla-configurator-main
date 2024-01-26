@@ -35,7 +35,7 @@ export class ConfiguredTesla {
     totalCost: number = 0;
     extraCost: number = 1000;
 
-    public setTotalPrice(): void {
+    setTotalPrice(): void {
         if (this.yoke) {
             this.totalCost += this.extraCost;
         }
@@ -50,5 +50,21 @@ export class ConfiguredTesla {
         if (this.typeConfig) {
             this.totalCost += this.typeConfig.price;
         }
+    }
+
+    getIsModelConfigSelected(): boolean {
+        if (this.modelCode && this.modelColor) {
+            return true;
+        }
+
+        return false;
+    }
+
+    getIsModelTypeSelected(): boolean {
+        if (this.typeConfig) {
+            return true;
+        }
+
+        return false;
     }
 }

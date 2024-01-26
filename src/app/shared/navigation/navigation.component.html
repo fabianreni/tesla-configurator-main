@@ -1,3 +1,6 @@
-<button (click)="openTeslaModelConfig()">Step 1</button>
-<button (click)="openModelOptionsConfig()">Step 2</button>
-<button (click)="openConfigSummaryConfig()">Step 3</button>
+<button id="step1" [routerLink]="routerLinks[0]">Step 1</button>
+
+<button id="step2" [routerLink]="routerLinks[1]" [disabled]="!isModelConfigSelected">Step 2</button>
+
+<button id="step3" [routerLink]="routerLinks[2]" [disabled]="!isModelConfigSelected && !isModelTypeSelected">Step
+    3</button>
