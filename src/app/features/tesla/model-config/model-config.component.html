@@ -4,7 +4,7 @@
 
 <div>
     <span> Model:</span>
-    <select [(ngModel)]="selectedTeslaModelCode" (change)="onModelCodeChange()">
+    <select #modelSelect [(ngModel)]="selectedTeslaModelCode" (change)="onModelCodeChange()">
         <option [value]="null" selected>Select model</option>
         <ng-container *ngFor="let model of teslaModels">
             <option [value]="model.code">{{model.description}}</option>
@@ -12,7 +12,7 @@
     </select>
 
     <span>Color:</span>
-    <select [(ngModel)]="selectedTeslaColorCode" (change)="onModelColorChange()">
+    <select #colorSelect [(ngModel)]="selectedTeslaColorCode" (change)="onModelColorChange()">
         <option [value]="null" selected>Select color</option>
         <ng-container *ngIf="selectedTeslaModel">
             <ng-container *ngFor="let color of selectedTeslaModel.colors">
