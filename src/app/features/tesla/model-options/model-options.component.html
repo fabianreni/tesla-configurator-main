@@ -3,20 +3,28 @@
 </div>
 
 <div *ngIf="teslaType && teslaType.configs" class="options-container">
-    <span> Config:</span>
-    <select [(ngModel)]="selectedTeslaTypeConfigId" (change)="onTeslaTypeConfigChange()">
-        <ng-container *ngFor="let config of teslaType.configs">
-            <option [value]="config.id">{{config.description}}</option>
-        </ng-container>
-    </select>
+    <div>
+        <span> Config:</span>
+        <select [(ngModel)]="selectedTeslaTypeConfigId" (change)="onTeslaTypeConfigChange()">
+            <option [value]="null" selected>Select model</option>
+            <ng-container *ngFor="let config of teslaType.configs">
+                <option [value]="config.id">{{config.description}}</option>
+            </ng-container>
+        </select>
+    </div>
+
     <ng-container *ngIf="selectedTeslaTypeConfig">
         <span> Range: {{selectedTeslaTypeConfig.range}} miles - Max speed: {{selectedTeslaTypeConfig.speed}}- Cost:
-            {{selectedTeslaTypeConfig.price}} </span>
+            {{selectedTeslaTypeConfig.price | currency: 'USD' }} </span>
     </ng-container>
 
-    <span> Tow hitch? </span>
-    <input type="checkbox" [(ngModel)]="teslaType.towHitch">
+    <div>
+        <span> Tow hitch? </span>
+        <input type="checkbox" [(ngModel)]="teslaType.towHitch">
+    </div>
 
-    <span> Yoke steering wheel?</span>
-    <input type="checkbox" [(ngModel)]="teslaType.yoke">
+    <div>
+        <span> Yoke steering wheel?</span>
+        <input type="checkbox" [(ngModel)]="teslaType.yoke">
+    </div>
 </div>
