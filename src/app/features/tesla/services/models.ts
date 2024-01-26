@@ -97,4 +97,15 @@ export class ConfiguredTesla {
 
         return false;
     }
+
+    reset(): void {
+        this.modelCode = null;
+        this.modelDescription = null;
+        this.modelColor = null;
+        this.typeConfig = null;
+        this.towHitch = false;
+        this.yoke = false;
+        this.totalCost = 0;
+        this.extraCost = 1000;
+    }
 }

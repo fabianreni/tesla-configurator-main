@@ -23,11 +23,15 @@ export class ConfiguredTeslaService {
     this.configuration.next(this.configuredTesla)
   }
 
+  resetConfiguredTesla(): void {
+    this.configuredTesla.reset();
+    this.setConfiguredTesla();
+  }
+
   setSelectedTeslaModel(selectedTeslaModel: TeslaModelConfig): void {
+    this.configuredTesla.reset();
     this.configuredTesla.modelCode = selectedTeslaModel.code;
     this.configuredTesla.modelDescription = selectedTeslaModel.description;
-    this.configuredTesla.modelColor = null;
-    this.configuredTesla.typeConfig = null;
     this.configuredTesla.setTotalPrice();
     this.setConfiguredTesla();
   }

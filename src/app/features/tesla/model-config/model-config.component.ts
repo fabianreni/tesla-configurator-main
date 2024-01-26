@@ -79,6 +79,8 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     const findedModel = this.findSelectedModel();
 
     if (!findedModel) {
+      this.configuredTeslaService.resetConfiguredTesla();
+      this.selectedTeslaColorCode = null;
       return;
     }
 
