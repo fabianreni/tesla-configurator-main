@@ -32,5 +32,23 @@ export class ConfiguredTesla {
     typeConfig: Config | null = null;
     towHitch: boolean | null = null;
     yoke: boolean | null = null;
-}
+    totalCost: number = 0;
+    extraCost: number = 1000;
 
+    public setTotalPrice(): void {
+        if (this.yoke) {
+            this.totalCost += this.extraCost;
+        }
+        if (this.towHitch) {
+            this.totalCost += this.extraCost;
+        }
+
+        if (this.modelColor) {
+            this.totalCost += this.modelColor.price;
+        }
+
+        if (this.typeConfig) {
+            this.totalCost += this.typeConfig.price;
+        }
+    }
+}

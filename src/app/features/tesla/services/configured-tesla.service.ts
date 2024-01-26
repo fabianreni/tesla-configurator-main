@@ -27,11 +27,13 @@ export class ConfiguredTeslaService {
     this.configuredTesla.modelCode = selectedTeslaModel.code;
     this.configuredTesla.modelDescription = selectedTeslaModel.description;
     this.configuredTesla.modelColor = null;
+    this.configuredTesla.setTotalPrice();
     this.setConfiguredTesla();
   }
 
   setSelectedTeslaColor(selectedTeslaColor: Color): void {
     this.configuredTesla.modelColor = selectedTeslaColor;
+    this.configuredTesla.setTotalPrice();
     this.setConfiguredTesla();
   }
 
@@ -39,6 +41,7 @@ export class ConfiguredTeslaService {
     this.configuredTesla.typeConfig = selectedTeslaType;
     this.configuredTesla.towHitch = towHitch;
     this.configuredTesla.yoke = yoke;
+    this.configuredTesla.setTotalPrice();
     this.setConfiguredTesla();
   }
 }

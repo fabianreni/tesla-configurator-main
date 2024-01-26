@@ -2,13 +2,41 @@
     <span>Step 3: Summary </span>
 </div>
 
-<div class="summary-container">
-    <span> Your Tesla NAMETEMPLATE</span>
-    <span> config type price</span>
-    <span> range and speed price</span>
-    <span> colore price</span>
-    <span> other options price</span>
-    <hr>
-    <span> TOTAL COST COSTTEMPLATE</span>
-    <hr>
-</div>
+<ng-container *ngIf="(configuredTesla$ | async) as configuredTesla">
+    <ng-container *ngIf="configuredTesla">
+
+        <div class="summary-container">
+            <span> Your Tesla {{configuredTesla.modelDescription}}</span>
+
+            <div class="detail-and-price-container">
+                <span> {{configuredTesla.typeConfig?.description}}</span>
+                <span> {{configuredTesla.typeConfig?.price | currency: 'USD' }}</span>
+            </div>
+
+            <span> Range: {{configuredTesla.typeConfig?.range}} miles - Max speed:
+                {{configuredTesla.typeConfig?.speed}}</span>
+
+            <div class="detail-and-price-container">
+                <span> {{configuredTesla.modelColor?.description}}</span>
+                <span> {{configuredTesla.modelColor?.price | currency: 'USD' }}</span>
+            </div>
+
+            <div *ngIf="configuredTesla.towHitch" class="detail-and-price-container">
+                <span> Tow Hitch Package </span>
+                <span> {{configuredTesla.extraCost | currency: 'USD' }}</span>
+            </div>
+
+            <div *ngIf="configuredTesla.yoke" class="detail-and-price-container">
+                <span> Yoke Package </span>
+                <span> {{configuredTesla.extraCost | currency: 'USD' }}</span>
+            </div>
+        </div>
+
+        <hr>
+        <div class="total-container detail-and-price-container">
+            <span>TOTAL COST</span>
+            <span>{{configuredTesla.totalCost | currency: 'USD'}}</span>
+        </div>
+        <hr>
+    </ng-container>
+</ng-container>
