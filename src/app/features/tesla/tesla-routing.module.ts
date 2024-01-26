@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ModelOptionsComponent } from './model-options/model-options.component';
 import { ModelConfigComponent } from './model-config/model-config.component';
 import { ConfigSummaryComponent } from './config-summary/config-summary.component';
+import { ModelConfigGuardService } from '../../shared/router-guard/model-config-guard.service';
+import { ModelOptionConfigGuardService } from '../../shared/router-guard/model-option-config-guard.service';
 
 const routes: Routes = [
   {
@@ -15,12 +17,14 @@ const routes: Routes = [
     component: ModelConfigComponent
   },
   {
-    path: 'config/options/:modelCode',
-    component: ModelOptionsComponent
+    path: 'config/options',
+    component: ModelOptionsComponent,
+    canActivate: [ModelConfigGuardService]
   },
   {
     path: 'config/summary',
-    component: ConfigSummaryComponent
+    component: ConfigSummaryComponent,
+    canActivate: [ModelConfigGuardService, ModelOptionConfigGuardService]
   }
 ];
 
