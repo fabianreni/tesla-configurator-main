@@ -10,7 +10,7 @@ const routes: Routes = [
     component: ModelConfigComponent
   },
   {
-    path: 'config/options',
+    path: 'config/options/:modelCode',
     component: ModelOptionsComponent
   },
   {
