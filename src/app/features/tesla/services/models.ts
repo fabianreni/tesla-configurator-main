@@ -1,13 +1,7 @@
-export class TeslaModelConfig {
+export interface TeslaModelConfig {
     code: string;
     description: string;
     colors: Color[];
-
-    constructor(code: string, description: string, colors: Color[]) {
-        this.code = code;
-        this.description = description;
-        this.colors = colors;
-    }
 }
 
 export interface Color {
