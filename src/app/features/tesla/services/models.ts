@@ -53,6 +53,7 @@ export class ConfiguredTesla {
     }
 
     setTotalPrice(): void {
+        this.totalCost = 0;
         if (this.yoke) {
             this.totalCost += this.extraCost;
         }
