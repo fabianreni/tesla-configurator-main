@@ -18,9 +18,10 @@ export class ConfiguredTeslaService {
   }
 
   private setConfiguredTesla(): void {
-    if (this.configuredTesla === null || this.configuredTesla.modelCode === null || this.configuredTesla.modelColor === null) {
+    if (this.configuredTesla === null) {
       return;
     }
+
     this.configuration.next(this.configuredTesla)
   }
 
@@ -51,8 +52,13 @@ export class ConfiguredTeslaService {
     this.setConfiguredTesla();
   }
 
+  resetType(): void {
+    this.configuredTesla.typeConfig = null;
+    this.setConfiguredTesla();
+  }
+
   public isModelConfigSelected(): boolean {
-    if (this.configuredTesla.modelCode && this.configuredTesla.modelCode) {
+    if (this.configuredTesla.modelCode && this.configuredTesla.modelColor) {
       return true;
     }
 

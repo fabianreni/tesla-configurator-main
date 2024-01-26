@@ -98,6 +98,8 @@ export class ModelTypeComponent implements OnInit, OnDestroy {
     const findedConfig = this.findSelectedConfig()
 
     if (!findedConfig) {
+      this.configuredTeslaService.resetType();
+      this.selectedTeslaTypeConfig = null;
       return;
     }
 
