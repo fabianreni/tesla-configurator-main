@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ImageService {
-  private imageFolderURL = "https://interstate21.com/tesla-app/images/";
+  readonly imageFolderURL = "https://interstate21.com/tesla-app/images/";
   constructor() { }
 
   public getTeslaModelImage(teslaModelCode: string, teslaModelColore: string): string {
-    return this.imageFolderURL + teslaModelCode + "/" + teslaModelColore + ".jpg";
+    return `${this.imageFolderURL}${teslaModelCode}/${teslaModelColore}.jpg`;
   }
 }
