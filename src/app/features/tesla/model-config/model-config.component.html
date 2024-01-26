@@ -4,6 +4,8 @@
 
 <div>
     <span> Model:</span>
+
+    {{selectedTeslaModel|json}}
     <select [(ngModel)]="selectedTeslaModelCode" (change)="onModelCodeChange()">
         <option [value]="null" selected>Select model</option>
         <ng-container *ngFor="let model of teslaModels">
