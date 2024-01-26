@@ -25,13 +25,13 @@ export interface Config {
     price: number;
 }
 
-export interface ConfiguredTesla {
-    modelCode: string;
-    modelDescription: string;
-    modelColore: Color
-    typeCode: string;
-    typeConfig: Config;
-    towHitch: boolean;
-    yoke: boolean;
+export class ConfiguredTesla {
+    modelCode: string | null = null;
+    modelDescription: string | null = null;
+    modelColore: Color | null = null;
+    typeCode: string | null = null;
+    typeConfig: Config | null = null;
+    towHitch: boolean | null = null;
+    yoke: boolean | null = null;
 }
 
