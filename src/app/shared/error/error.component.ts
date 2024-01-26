@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './error.component.scss'
 })
 export class ErrorComponent {
-
+  public errorTitle = '404 - Not Found';
+  public errorDescription = 'Sorry, the requested page does not exist.';
 }
