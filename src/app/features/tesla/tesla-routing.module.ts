@@ -6,6 +6,11 @@ import { ConfigSummaryComponent } from './config-summary/config-summary.componen
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'config/model',
+    pathMatch: 'full'
+  },
+  {
     path: 'config/model',
     component: ModelConfigComponent
   },
