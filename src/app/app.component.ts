@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TeslaConfigComponent } from './features/tesla/tesla-config/tesla-config.component';
+import { NavigationComponent } from './shared/navigation/navigationcomponent';
 import { TeslaImageViewerComponent } from './shared/tesla-image-viewer/tesla-image-viewer.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { TeslaImageViewerComponent } from './shared/tesla-image-viewer/tesla-ima
   standalone: true,
   imports: [
     RouterOutlet,
-    TeslaConfigComponent,
+    NavigationComponent,
     TeslaImageViewerComponent
   ],
   templateUrl: 'app.component.html',

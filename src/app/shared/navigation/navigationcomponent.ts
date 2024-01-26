@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tesla-config',
+  selector: 'app-navigation',
   standalone: true,
   imports: [],
-  templateUrl: './tesla-config.component.html',
-  styleUrl: './tesla-config.component.scss'
+  templateUrl: './navigation.component.html',
+  styleUrl: './navigation.component.scss'
 })
-export class TeslaConfigComponent {
+export class NavigationComponent {
 
   constructor(private router: Router) {
   }
