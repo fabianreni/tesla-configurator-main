@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TeslaModel } from '../services/models';
+import { Color, TeslaModel } from '../services/models';
 import { Subscription } from 'rxjs';
-import { ImageService } from '../services/image.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModelConfigService } from '../services/model-config.service';
+import { ConfiguredTeslaService } from '../services/configured-tesla.service';
 
 @Component({
   selector: 'app-model-config',
@@ -26,7 +26,7 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
   private subSink: Subscription = new Subscription();
   constructor(
     private modelConfigService: ModelConfigService,
-    private imageService: ImageService
+    private configuredTeslaService: ConfiguredTeslaService
   ) { }
 
   ngOnInit() {
@@ -57,13 +57,20 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     }
 
     this.selectedTeslaModel = findedModel;
+    this.selectedTeslaColorCode = null;
+    this.configuredTeslaService.setSelectedTeslaModel(this.selectedTeslaModel);
   }
 
-  initializeImageUrl(): string {
-    if (this.selectedTeslaModel && this.selectedTeslaColorCode) {
-      return this.imageService.getTeslaModelImage(this.selectedTeslaModel.code, this.selectedTeslaColorCode)
+  onModelColorChange() {
+    const findedColor = this.selectedTeslaModel?.colors.find((color: Color) => {
+      return color.code === this.selectedTeslaColorCode
+    });
+
+    if (!findedColor) {
+      return;
     }
-    return '';
+
+    this.configuredTeslaService.setSelectedTeslaColor(findedColor);
   }
 
   ngOnDestroy(): void {

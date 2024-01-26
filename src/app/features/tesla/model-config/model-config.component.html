@@ -5,12 +5,15 @@
 <div>
     <span> Model:</span>
     <select [(ngModel)]="selectedTeslaModelCode" (change)="onModelCodeChange()">
+        <option [value]="null" selected>Select model</option>
         <ng-container *ngFor="let model of teslaModels">
             <option [value]="model.code">{{model.description}}</option>
         </ng-container>
     </select>
+
     <span>Color:</span>
-    <select [(ngModel)]="selectedTeslaColorCode">
+    <select [(ngModel)]="selectedTeslaColorCode" (change)="onModelColorChange()">
+        <option [value]="null" selected>Select color</option>
         <ng-container *ngIf="selectedTeslaModel">
             <ng-container *ngFor="let color of selectedTeslaModel.colors">
                 <option [value]="color.code">{{color.description}}</option>
@@ -18,5 +21,3 @@
         </ng-container>
     </select>
 </div>
-
-<img src="{{ initializeImageUrl() }}" />
