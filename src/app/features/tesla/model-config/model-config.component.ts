@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TeslaModel } from '../services/models';
-import { ModelConfigService } from '../services/model-config.service';
 import { Observable, Subscription } from 'rxjs';
 import { ImageService } from '../services/image.service';
 import { CommonModule } from '@angular/common';
