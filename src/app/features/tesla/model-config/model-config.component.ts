@@ -1,18 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TeslaModel } from '../services/models';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ImageService } from '../services/image.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ModelConfigService } from '../services/model-config.service';
 
 @Component({
   selector: 'app-model-config',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    HttpClientModule
+    FormsModule
   ],
   templateUrl: './model-config.component.html',
   styleUrl: './model-config.component.scss'
@@ -26,7 +25,7 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
 
   private subSink: Subscription = new Subscription();
   constructor(
-    private httpClient: HttpClient,
+    private modelConfigService: ModelConfigService,
     private imageService: ImageService
   ) { }
 
@@ -34,15 +33,8 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     this.initializeTeslaModels();
   }
 
-  private getTeslaModelsByApi(): Observable<TeslaModel[]> {
-    const url = '/models';
-    const rawTeslaModelData$ = this.httpClient.get<TeslaModel[]>(url);
-
-    return rawTeslaModelData$;
-  }
-
   private initializeTeslaModels(): void {
-    const teslaModels$ = this.getTeslaModelsByApi();
+    const teslaModels$ = this.modelConfigService.getTeslaModelsByApi();
 
     const self = this;
 
