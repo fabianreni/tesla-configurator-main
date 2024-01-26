@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ConfiguredTeslaService } from '../services/configured-tesla.service';
-import { ConfiguredTesla } from '../services/models';
 import { CommonModule } from '@angular/common';
+import { ConfiguredTesla } from '../services/configured-tesla-model';
 
 @Component({
   selector: 'app-config-summary',

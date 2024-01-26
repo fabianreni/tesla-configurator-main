@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Color, ConfiguredTesla, TeslaModelConfig } from '../services/models';
+import { Color, TeslaModelConfig } from '../services/models';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModelConfigService } from '../services/model-config.service';
 import { ConfiguredTeslaService } from '../services/configured-tesla.service';
+import { ConfiguredTesla } from '../services/configured-tesla-model';
 
 @Component({
   selector: 'app-model-config',

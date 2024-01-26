@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ConfiguredTeslaService } from '../../features/tesla/services/configured-tesla.service';
 import { Subscription } from 'rxjs';
-import { ConfiguredTesla } from '../../features/tesla/services/models';
+import { ConfiguredTesla } from '../../features/tesla/services/configured-tesla-model';
 
 @Component({
   selector: 'app-navigation',

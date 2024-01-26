@@ -1,21 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { Config, ConfiguredTesla, TeslaModelType } from '../services/models';
+import { Subscription } from 'rxjs';
+import { Config, TeslaModelType } from '../services/models';
 import { ModelConfigService } from '../services/model-config.service';
 import { ConfiguredTeslaService } from '../services/configured-tesla.service';
+import { ConfiguredTesla } from '../services/configured-tesla-model';
 
 @Component({
-  selector: 'app-model-options',
+  selector: 'app-model-type',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule],
-  templateUrl: './model-options.component.html',
-  styleUrl: './model-options.component.scss'
+  templateUrl: './model-type.component.html',
+  styleUrl: './model-type.component.scss'
 })
-export class ModelOptionsComponent implements OnInit, OnDestroy {
+export class ModelTypeComponent implements OnInit, OnDestroy {
   teslaType: TeslaModelType | null = null;
   selectedTeslaTypeConfig: Config | null = null;
   selectedTeslaTypeConfigId: number | null = null;

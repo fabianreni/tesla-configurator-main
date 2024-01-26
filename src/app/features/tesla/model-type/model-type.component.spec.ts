@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModelOptionsComponent } from './model-options.component';
+import { ModelTypeComponent } from './model-type.component';
 
 describe('ModelOptionsComponent', () => {
-  let component: ModelOptionsComponent;
-  let fixture: ComponentFixture<ModelOptionsComponent>;
+  let component: ModelTypeComponent;
+  let fixture: ComponentFixture<ModelTypeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModelOptionsComponent]
+      imports: [ModelTypeComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ModelOptionsComponent);
+    fixture = TestBed.createComponent(ModelTypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

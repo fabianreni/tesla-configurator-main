@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ConfiguredTesla } from '../../features/tesla/services/models';
 import { ImageService } from './image.service';
 import { ConfiguredTeslaService } from '../../features/tesla/services/configured-tesla.service';
 import { Subscription } from 'rxjs';
+import { ConfiguredTesla } from '../../features/tesla/services/configured-tesla-model';
 
 @Component({
   selector: 'app-tesla-image-viewer',

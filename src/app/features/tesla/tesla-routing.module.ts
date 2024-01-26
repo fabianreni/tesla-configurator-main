@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ModelOptionsComponent } from './model-options/model-options.component';
+import { ModelTypeComponent } from './model-type/model-type.component';
 import { ModelConfigComponent } from './model-config/model-config.component';
 import { ConfigSummaryComponent } from './config-summary/config-summary.component';
 import { ModelConfigGuardService } from '../../shared/router-guard/model-config-guard.service';
@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'config/options',
-    component: ModelOptionsComponent,
+    component: ModelTypeComponent,
     canActivate: [ModelConfigGuardService]
   },
   {

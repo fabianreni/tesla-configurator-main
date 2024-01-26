@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Color, Config, ConfiguredTesla, TeslaModelConfig } from './models';
+import { Color, Config, TeslaModelConfig } from './models';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { ConfiguredTesla } from './configured-tesla-model';
 
 @Injectable({
   providedIn: 'root'
