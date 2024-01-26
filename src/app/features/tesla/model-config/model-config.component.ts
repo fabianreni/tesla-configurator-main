@@ -52,13 +52,13 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     const self = this;
     const subscription = configuredTesla$.subscribe((configuredTesla) => {
       self.configuredTesla = configuredTesla;
-      self.setConfiguredValues();
+      self.restoreDataFromCaches();
     });
 
     this.subSink.add(subscription);
   }
 
-  private setConfiguredValues(): void {
+  private restoreDataFromCaches(): void {
     if (!this.configuredTesla) { return; }
 
     this.selectedTeslaModelCode = this.configuredTesla.modelCode;
