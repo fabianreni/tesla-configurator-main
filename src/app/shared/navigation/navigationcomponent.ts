@@ -37,7 +37,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   private initializeConfigSelection(): void {
-    const configuredTesla$ = this.configuredTeslaService.configuration$;
+    const configuredTesla$ = this.configuredTeslaService.getConfiguredTesla();
 
     const self = this;
     const subscription = configuredTesla$.subscribe((configuredTesla: ConfiguredTesla) => {

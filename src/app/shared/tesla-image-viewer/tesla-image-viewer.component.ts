@@ -25,7 +25,7 @@ export class TeslaImageViewerComponent implements OnInit, OnDestroy {
   }
 
   private getConfiguredTesla(): void {
-    const configuredTesla$ = this.configuredTeslaService.configuration$;
+    const configuredTesla$ = this.configuredTeslaService.getConfiguredTesla();
 
     const self = this;
     const subscription = configuredTesla$.subscribe((configuredTesla) => {

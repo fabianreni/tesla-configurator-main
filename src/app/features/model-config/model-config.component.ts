@@ -47,7 +47,7 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
   }
 
   public initializeConfiguredTesla(): void {
-    const configuredTesla$ = this.configuredTeslaService.configuration$;
+    const configuredTesla$ = this.configuredTeslaService.getConfiguredTesla();
 
     const self = this;
     const subscription = configuredTesla$.subscribe((configuredTesla) => {

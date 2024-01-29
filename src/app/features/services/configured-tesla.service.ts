@@ -8,13 +8,17 @@ import { ConfiguredTesla } from './configured-tesla-model';
 })
 export class ConfiguredTeslaService {
 
-  public configuration$: Observable<ConfiguredTesla>;
-
+  private configuration$: Observable<ConfiguredTesla>;
   private configuration: Subject<ConfiguredTesla> = new ReplaySubject<ConfiguredTesla>(1);
   private configuredTesla: ConfiguredTesla;
+
   constructor() {
     this.configuration$ = this.configuration.asObservable();
     this.configuredTesla = new ConfiguredTesla();
+  }
+
+  getConfiguredTesla(): Observable<ConfiguredTesla> {
+    return this.configuration$;
   }
 
   resetConfiguredTesla(): void {

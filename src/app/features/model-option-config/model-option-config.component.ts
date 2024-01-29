@@ -33,7 +33,7 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
   }
 
   initializeConfiguredTesla(): void {
-    const configuredTesla$ = this.configuredTeslaService.configuration$;
+    const configuredTesla$ = this.configuredTeslaService.getConfiguredTesla();
 
     const self = this;
     const subscription = configuredTesla$.subscribe((configuredTesla) => {

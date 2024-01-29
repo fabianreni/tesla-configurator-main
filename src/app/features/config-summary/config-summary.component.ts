@@ -20,6 +20,6 @@ export class ConfigSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.configuredTesla$ = this.configuredTeslaService.configuration$;
+    this.configuredTesla$ = this.configuredTeslaService.getConfiguredTesla();
   }
 }
