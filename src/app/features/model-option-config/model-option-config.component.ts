@@ -17,8 +17,9 @@ import { ConfiguredTesla } from '../services/configured-tesla-model';
   styleUrl: './model-option-config.component.scss'
 })
 export class ModelOptionConfigComponent implements OnInit, OnDestroy {
-  teslaOptionConfig: TeslaModelOptionConfig | null = null;
-  selectedTeslaTypeConfig: Config | null = null;
+  teslaOptionsConfig: TeslaModelOptionConfig | null = null;
+  selectedTeslaModelOptionConfig: Config | null = null;
+  
   configuredTesla: ConfiguredTesla | null = null;
 
   private subSink: Subscription = new Subscription();
@@ -32,7 +33,7 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
   }
 
   onTeslaOptionConfigChange(selectedTeslaTypeConfig: string): void {
-    if (!this.teslaOptionConfig) {
+    if (!this.teslaOptionsConfig) {
       return;
     }
 
@@ -41,24 +42,23 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     const findedConfig = this.findSelectedConfig(selectedTeslaTypeConfigId);
 
     if (!findedConfig) {
-      this.configuredTeslaService.resetOptionConfig();
-      this.selectedTeslaTypeConfig = null;
+      this.resetConfigAndSelectedInfo();
       return;
     }
 
-    this.selectedTeslaTypeConfig = findedConfig;
+    this.selectedTeslaModelOptionConfig = findedConfig;
     this.configuredTeslaService.setSelectedTeslaType(
-      this.selectedTeslaTypeConfig);
+      this.selectedTeslaModelOptionConfig);
   }
 
   onTeslaIncludeTowChange(): void {
-    if (!this.teslaOptionConfig) { return; }
-    this.configuredTeslaService.setTowHitch(this.teslaOptionConfig.towHitch);
+    if (!this.teslaOptionsConfig) { return; }
+    this.configuredTeslaService.setTowHitch(this.teslaOptionsConfig.towHitch);
   }
 
   onTeslaYokeChange(): void {
-    if (!this.teslaOptionConfig) { return; }
-    this.configuredTeslaService.setYoke(this.teslaOptionConfig.yoke);
+    if (!this.teslaOptionsConfig) { return; }
+    this.configuredTeslaService.setYoke(this.teslaOptionsConfig.yoke);
   }
 
   private initializeConfiguredTesla(): void {
@@ -81,19 +81,19 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     const self = this;
 
     const subscription = teslaOptionConfig$.subscribe((teslaOptionConfig: TeslaModelOptionConfig) => {
-      self.teslaOptionConfig = teslaOptionConfig;
-      this.restoreDataFromCaches();
+      self.teslaOptionsConfig = teslaOptionConfig;
+      this.getAndRestoreSelectedInfoFromCaches();
     });
 
     this.subSink.add(subscription);
   }
 
   private findSelectedConfig(selectedTeslaTypeConfigId: number | null): Config | null {
-    if (!selectedTeslaTypeConfigId || !this.teslaOptionConfig) {
+    if (!selectedTeslaTypeConfigId || !this.teslaOptionsConfig) {
       return null;
     }
 
-    const findedConfig = this.teslaOptionConfig.configs.find((teslaTypeConfig: Config) => {
+    const findedConfig = this.teslaOptionsConfig.configs.find((teslaTypeConfig: Config) => {
       return teslaTypeConfig.id == selectedTeslaTypeConfigId;
     });
 
@@ -104,27 +104,28 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     return findedConfig;
   }
 
-  private restoreDataFromCaches(): void {
+  private getAndRestoreSelectedInfoFromCaches(): void {
     const configuredTesla$ = this.configuredTeslaService.getConfiguredTesla();
 
     const self = this;
     const subscription = configuredTesla$.subscribe((configuredTesla) => {
       self.configuredTesla = configuredTesla;
-      this.restoreDataFromCachesInternal();
+      this.restoreDataFromCaches();
     });
 
     this.subSink.add(subscription);
   }
 
-  private restoreDataFromCachesInternal(): void {
+  private restoreDataFromCaches(): void {
     if (!this.configuredTesla || !this.configuredTesla.config) {
-      if (this.teslaOptionConfig) {
-        this.configuredTeslaService.setTowHitch(this.teslaOptionConfig.towHitch);
-        this.configuredTeslaService.setYoke(this.teslaOptionConfig.yoke);
-      }
+      this.setConfiguredTeslaInitialTowHitchAndYoke();
     }
 
-    if (!this.configuredTesla || !this.configuredTesla.config || !this.teslaOptionConfig) { return; }
+    this.restoreDataFromCachesInternal();
+  }
+
+  private restoreDataFromCachesInternal(): void {
+    if (!this.configuredTesla || !this.configuredTesla.config || !this.teslaOptionsConfig) { return; }
 
     const findedConfig = this.findSelectedConfig(this.configuredTesla.config.id);
 
@@ -132,15 +133,21 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.selectedTeslaTypeConfig = findedConfig;
-    this.teslaOptionConfig.towHitch = this.configuredTesla.towHitch;
-    this.teslaOptionConfig.yoke = this.configuredTesla.yoke;;
+    this.selectedTeslaModelOptionConfig = findedConfig;
+    this.teslaOptionsConfig.towHitch = this.configuredTesla.towHitch;
+    this.teslaOptionsConfig.yoke = this.configuredTesla.yoke;
   }
 
-  private setTowHitchAndYoke(): void {
-    if (!this.teslaOptionConfig) { return; }
-    this.configuredTesla?.setTowHitch(this.teslaOptionConfig.towHitch);
-    this.configuredTesla?.setYoke(this.teslaOptionConfig.towHitch);
+  private setConfiguredTeslaInitialTowHitchAndYoke(): void {
+    if (this.teslaOptionsConfig) {
+      this.configuredTeslaService.setTowHitch(this.teslaOptionsConfig.towHitch);
+      this.configuredTeslaService.setYoke(this.teslaOptionsConfig.yoke);
+    }
+  }
+
+  private resetConfigAndSelectedInfo(): void {
+    this.configuredTeslaService.resetOptionConfig();
+    this.selectedTeslaModelOptionConfig = null;
   }
 
   ngOnDestroy(): void {

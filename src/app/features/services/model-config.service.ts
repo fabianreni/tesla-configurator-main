@@ -15,7 +15,7 @@ export class ModelConfigService {
     public httpClient: HttpClient
   ) { }
 
-  public getTeslaModelConfig(): Observable<TeslaModelConfig[]> {
+  getTeslaModelConfig(): Observable<TeslaModelConfig[]> {
     const teslaOptionConfig$ = this.getTeslaModelsByApi();
 
     const config$ = teslaOptionConfig$.pipe(
@@ -68,11 +68,10 @@ export class ModelConfigService {
     const self = this;
     const config$ = teslaOptionConfig$.pipe(
       map((config: TeslaModelOptionConfig) => {
-
-        console.log(config)
         self.teslaModelOptionConfig = config;
         self.teslaModelOptionConfig.code = code;
         self.setConfig();
+        
         return self.teslaModelOptionConfig;
       }),
       catchError((err) => {

@@ -52,13 +52,13 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     const self = this;
     const subscription = configuredTesla$.subscribe((configuredTesla) => {
       self.configuredTesla = configuredTesla;
-      self.restoreDataFromCaches();
+      self.restoreSelectedInfoFromCaches();
     });
 
     this.subSink.add(subscription);
   }
 
-  private restoreDataFromCaches(): void {
+  private restoreSelectedInfoFromCaches(): void {
     if (!this.configuredTesla) { return; }
 
     const findedModel = this.findSelectedModel(this.configuredTesla.modelCode);
@@ -79,13 +79,25 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     const findedModel = this.findSelectedModel(selectedModel);
 
     if (!findedModel) {
-      this.configuredTeslaService.resetConfiguredTesla();
-      this.selectedTeslaModel = null;
+      this.resetConfigAndSelectedInfo();
       return;
     }
 
     this.selectedTeslaModel = findedModel;
     this.configuredTeslaService.setSelectedTeslaModel(this.selectedTeslaModel);
+  }
+
+  onModelColorChange(selectedColor: string | null): void {
+    const findedColor = this.selectedTeslaModel?.colors.find((color: Color) => {
+      return color.code === selectedColor;
+    });
+
+    if (!findedColor) {
+      this.configuredTeslaService.resetColor();
+      return;
+    }
+
+    this.configuredTeslaService.setSelectedTeslaColor(findedColor);
   }
 
   private findSelectedModel(selectedModel: string | null): TeslaModelConfig | null {
@@ -104,17 +116,9 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     return findedModel;
   }
 
-  onModelColorChange(selectedColor: string | null): void {
-    const findedColor = this.selectedTeslaModel?.colors.find((color: Color) => {
-      return color.code === selectedColor;
-    });
-
-    if (!findedColor) {
-      this.configuredTeslaService.resetColor();
-      return;
-    }
-
-    this.configuredTeslaService.setSelectedTeslaColor(findedColor);
+  private resetConfigAndSelectedInfo(): void {
+    this.configuredTeslaService.resetConfiguredTesla();
+    this.selectedTeslaModel = null;
   }
 
   ngOnDestroy(): void {

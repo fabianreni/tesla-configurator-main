@@ -1,6 +1,8 @@
 import { Color, Config, TeslaModelConfig } from "./models";
 
 export class ConfiguredTesla {
+    readonly extraCost = 1000;
+
     modelCode: string | null;
     modelDescription: string | null;
     modelColor: Color | null;
@@ -8,7 +10,6 @@ export class ConfiguredTesla {
     towHitch: boolean;
     yoke: boolean;
     totalCost: number;
-    readonly extraCost = 1000;
 
     constructor() {
         this.modelCode = null;
