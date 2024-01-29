@@ -116,14 +116,6 @@ export class ModelTypeComponent implements OnInit, OnDestroy {
       this.selectedTeslaTypeConfig, this.teslaType.towHitch, this.teslaType.yoke);
   }
 
-  onIncludeTowChange(includeTow: boolean): void {
-    console.log(includeTow)
-  }
-
-  onIncludeYokeChange(includeYoke: boolean): void {
-    console.log(includeYoke);
-  }
-
   ngOnDestroy(): void {
     if (this.subSink.closed) {
       return;
