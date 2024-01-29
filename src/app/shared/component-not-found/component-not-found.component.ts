@@ -4,10 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-error',
   standalone: true,
   imports: [],
-  templateUrl: './error.component.html',
-  styleUrl: './error.component.scss'
+  templateUrl: './component-not-found.component.html',
+  styleUrl: './component-not-found.component.scss'
 })
-export class ErrorComponent {
+export class ComponentNotFoundComponent {
   public errorTitle = '404 - Not Found';
   public errorDescription = 'Sorry, the requested page does not exist.';
 }

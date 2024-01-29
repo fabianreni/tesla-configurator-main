@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ErrorComponent } from './shared/error/error.component';
+import { ComponentNotFoundComponent } from './shared/component-not-found/component-not-found.component';
 import { ConfigSummaryComponent } from './features/config-summary/config-summary.component';
 import { ModelConfigComponent } from './features/model-config/model-config.component';
 import { ModelOptionConfigComponent } from './features/model-option-config/model-option-config.component';
@@ -28,6 +28,6 @@ export const routes: Routes = [
     },
     {
         path: '**',
-        component: ErrorComponent
+        component: ComponentNotFoundComponent
     }
 ];
