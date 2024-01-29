@@ -24,8 +24,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initializeConfigSelection();
     this.initializeRouterLinks();
+    this.initializeConfigSelection();
+  }
+
+  private initializeRouterLinks(): void {
+    const step1Url = "/config/model";
+    const step2Url = '/config/option';
+    const step3Url = "/config/summary";
+
+    this.routerLinks.push(step1Url, step2Url, step3Url);
   }
 
   private initializeConfigSelection(): void {
@@ -33,7 +41,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     const self = this;
     const subscription = configuredTesla$.subscribe((configuredTesla: ConfiguredTesla) => {
-      self.initializeConfigSelectionInternal(configuredTesla)
+      self.initializeConfigSelectionInternal(configuredTesla);
     });
 
     this.subSink.add(subscription);
@@ -42,14 +50,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private initializeConfigSelectionInternal(configuredTesla: ConfiguredTesla): void {
     this.isModelConfigSelected = configuredTesla.getIsModelConfigSelected();
     this.isModelOptionConfigSelected = configuredTesla.getIsModelOptionConfigSelected();
-  }
-
-  private initializeRouterLinks(): void {
-    const step1Url = "/config/model";
-    const step2Url = '/config/options';
-    const step3Url = "/config/summary";
-
-    this.routerLinks.push(step1Url, step2Url, step3Url);
   }
 
   ngOnDestroy(): void {

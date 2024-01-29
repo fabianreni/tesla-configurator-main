@@ -20,11 +20,11 @@
 
     <div *ngIf="configuredTesla">
         <span> Tow hitch? </span>
-        <input #includeTow type="checkbox" [(ngModel)]="configuredTesla.towHitch">
+        <input id="includeTow" type="checkbox" [(ngModel)]="configuredTesla.towHitch">
     </div>
 
     <div *ngIf="configuredTesla">
         <span> Yoke steering wheel?</span>
-        <input #includeYoke type="checkbox" [(ngModel)]="configuredTesla.yoke">
+        <input id="includeYoke" type="checkbox" [(ngModel)]="configuredTesla.yoke">
     </div>
 </div>

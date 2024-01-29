@@ -13,7 +13,7 @@ export class ModelOptionConfigGuardService {
     private configuredTeslaService: ConfiguredTeslaService) { }
 
   canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const isConfigSelected = this.configuredTeslaService.isTypeConfigSelected();
+    const isConfigSelected = this.configuredTeslaService.isModelOptionConfigSelected();
 
     if (isConfigSelected) {
       return true;
