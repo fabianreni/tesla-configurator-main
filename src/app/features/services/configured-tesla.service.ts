@@ -54,6 +54,8 @@ export class ConfiguredTeslaService {
 
   resetType(): void {
     this.configuredTesla.typeConfig = null;
+    this.configuredTesla.towHitch = false;
+    this.configuredTesla.yoke = false;
     this.setConfiguredTesla();
   }
 
