@@ -12,7 +12,7 @@ import { ConfiguredTesla } from '../../features/services/configured-tesla-model'
   styleUrl: './tesla-image-viewer.component.scss'
 })
 export class TeslaImageViewerComponent implements OnInit, OnDestroy {
-  imageUrl = signal('')
+  imageUrl = signal('');
 
   private subSink: Subscription = new Subscription();
   constructor(
@@ -21,6 +21,10 @@ export class TeslaImageViewerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getConfiguredTesla();
+  }
+
+  private getConfiguredTesla(): void {
     const configuredTesla$ = this.configuredTeslaService.configuration$;
 
     const self = this;

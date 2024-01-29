@@ -2,5 +2,6 @@
 
 <button id="step2" [routerLink]="routerLinks[1]" [disabled]="!isModelConfigSelected">Step 2</button>
 
-<button id="step3" [routerLink]="routerLinks[2]" [disabled]="!isModelConfigSelected || !isModelTypeSelected">Step
+<button id="step3" [routerLink]="routerLinks[2]"
+    [disabled]="!isModelConfigSelected || !isModelOptionConfigSelected">Step
     3</button>

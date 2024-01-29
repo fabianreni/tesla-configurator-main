@@ -42,7 +42,7 @@ export class ConfiguredTesla {
         return false;
     }
 
-    getIsModelTypeSelected(): boolean {
+    getIsModelOptionConfigSelected(): boolean {
         if (this.typeConfig) {
             return true;
         }

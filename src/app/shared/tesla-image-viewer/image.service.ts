@@ -7,7 +7,7 @@ export class ImageService {
   readonly imageFolderURL = "https://interstate21.com/tesla-app/images/";
   constructor() { }
 
-  public getTeslaModelImage(teslaModelCode: string, teslaModelColore: string): string {
+  getTeslaModelImage(teslaModelCode: string, teslaModelColore: string): string {
     return `${this.imageFolderURL}${teslaModelCode}/${teslaModelColore}.jpg`;
   }
 }

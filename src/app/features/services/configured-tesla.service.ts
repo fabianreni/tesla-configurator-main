@@ -59,7 +59,7 @@ export class ConfiguredTeslaService {
     return false;
   }
 
-  isTypeConfigSelected(): boolean {
+  isModelOptionConfigSelected(): boolean {
     if (this.configuredTesla.typeConfig) {
       return true;
     }
