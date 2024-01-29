@@ -8,15 +8,15 @@ import { ConfiguredTeslaService } from '../services/configured-tesla.service';
 import { ConfiguredTesla } from '../services/configured-tesla-model';
 
 @Component({
-  selector: 'app-model-type',
+  selector: 'app-model-option-config',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule],
-  templateUrl: './model-type.component.html',
-  styleUrl: './model-type.component.scss'
+  templateUrl: './model-option-config.component.html',
+  styleUrl: './model-option-config.component.scss'
 })
-export class ModelTypeComponent implements OnInit, OnDestroy {
+export class ModelOptionConfigComponent implements OnInit, OnDestroy {
 
   teslaType: TeslaModelType | null = null;
   selectedTeslaTypeConfig: Config | null = null;
