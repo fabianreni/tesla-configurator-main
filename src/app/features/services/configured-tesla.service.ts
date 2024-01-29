@@ -43,7 +43,7 @@ export class ConfiguredTeslaService {
   }
 
   resetColor(): void {
-    this.configuredTesla.resetColor();
+    this.configuredTesla.resetColorAndOptionConfig();
     this.setConfiguredTesla();
   }
 

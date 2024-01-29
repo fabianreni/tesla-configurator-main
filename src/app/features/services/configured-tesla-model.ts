@@ -40,13 +40,13 @@ export class ConfiguredTesla {
     reset(): void {
         this.modelCode = null;
         this.modelDescription = null;
-        this.resetColor();
-        this.resetOptionConfig();
-        this.totalCost = 0;
+        this.resetColorAndOptionConfig();
     }
 
-    resetColor(): void {
+    resetColorAndOptionConfig(): void {
         this.modelColor = null;
+        this.resetOptionConfig();
+        this.totalCost = 0;
     }
 
     resetOptionConfig(): void {

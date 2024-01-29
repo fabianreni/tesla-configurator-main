@@ -34,19 +34,7 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     this.initializeTeslaModels();
   }
 
-  private initializeTeslaModels(): void {
-    const teslaModels$ = this.modelConfigService.getTeslaModelConfig();
-    const self = this;
-
-    const subscription = teslaModels$.subscribe((teslaModels) => {
-      self.teslaModels = teslaModels;
-      self.initializeConfiguredTesla();
-    });
-
-    this.subSink.add(subscription);
-  }
-
-  public initializeConfiguredTesla(): void {
+  initializeConfiguredTesla(): void {
     const configuredTesla$ = this.configuredTeslaService.getConfiguredTesla();
 
     const self = this;
@@ -56,19 +44,6 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     });
 
     this.subSink.add(subscription);
-  }
-
-  private restoreSelectedInfoFromCaches(): void {
-    if (!this.configuredTesla) { return; }
-
-    const findedModel = this.findSelectedModel(this.configuredTesla.modelCode);
-    if (!findedModel) {
-      return;
-    }
-
-    this.selectedTeslaModel = findedModel;
-
-    if (!this.configuredTesla.modelColor) { return; }
   }
 
   onModelCodeChange(selectedModel: string | null): void {
@@ -100,6 +75,18 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     this.configuredTeslaService.setSelectedTeslaColor(findedColor);
   }
 
+  private initializeTeslaModels(): void {
+    const teslaModels$ = this.modelConfigService.getTeslaModelConfig();
+    const self = this;
+
+    const subscription = teslaModels$.subscribe((teslaModels) => {
+      self.teslaModels = teslaModels;
+      self.initializeConfiguredTesla();
+    });
+
+    this.subSink.add(subscription);
+  }
+
   private findSelectedModel(selectedModel: string | null): TeslaModelConfig | null {
     if (!selectedModel) {
       return null;
@@ -114,6 +101,19 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
     }
 
     return findedModel;
+  }
+
+  private restoreSelectedInfoFromCaches(): void {
+    if (!this.configuredTesla) { return; }
+
+    const findedModel = this.findSelectedModel(this.configuredTesla.modelCode);
+    if (!findedModel) {
+      return;
+    }
+
+    this.selectedTeslaModel = findedModel;
+
+    if (!this.configuredTesla.modelColor) { return; }
   }
 
   private resetConfigAndSelectedInfo(): void {
