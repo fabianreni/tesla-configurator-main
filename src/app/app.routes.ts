@@ -8,11 +8,6 @@ import { ModelOptionConfigGuardService } from './shared/router-guard/model-optio
 
 export const routes: Routes = [
     {
-        path: '',
-        redirectTo: 'config/model',
-        pathMatch: 'full'
-    },
-    {
         path: 'config/model',
         component: ModelConfigComponent
     },
@@ -25,6 +20,11 @@ export const routes: Routes = [
         path: 'config/summary',
         component: ConfigSummaryComponent,
         canActivate: [ModelConfigGuardService, ModelOptionConfigGuardService]
+    },
+    {
+        path: '',
+        redirectTo: 'config/model',
+        pathMatch: 'full'
     },
     {
         path: '**',
