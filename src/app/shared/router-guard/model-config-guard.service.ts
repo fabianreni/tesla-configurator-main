@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ConfiguredTeslaService } from '../../features/tesla/services/configured-tesla.service';
+import { ConfiguredTeslaService } from '../../features/services/configured-tesla.service';
 
 @Injectable({
   providedIn: 'root'
