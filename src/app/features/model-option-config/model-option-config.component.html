@@ -4,7 +4,7 @@
 <div *ngIf="teslaType && teslaType.configs" class="options-container">
     <div>
         <span> Config:</span>
-        <select #configSelect (change)="onTeslaTypeConfigChange(configSelect.value)">
+        <select #configSelect id="configSelect" (change)="onTeslaOptionConfigChange(configSelect.value)">
             <option [value]="null" selected>Select model</option>
             <ng-container *ngFor="let config of teslaType.configs">
                 <option [value]="config.id" [selected]="configuredTesla?.typeConfig?.id === config.id">

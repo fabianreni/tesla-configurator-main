@@ -32,7 +32,7 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     this.initializeConfiguredTesla();
   }
 
-  public initializeConfiguredTesla(): void {
+  initializeConfiguredTesla(): void {
     const configuredTesla$ = this.configuredTeslaService.configuration$;
 
     const self = this;
@@ -42,6 +42,30 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     });
 
     this.subSink.add(subscription);
+  }
+
+  onTeslaOptionConfigChange(selectedTeslaTypeConfig: string | null): void {
+    if (!selectedTeslaTypeConfig) {
+      return;
+    }
+
+    if (!this.teslaType) {
+      return;
+    }
+
+    const selectedTeslaTypeConfigId = Number(selectedTeslaTypeConfig);
+
+    const findedConfig = this.findSelectedConfig(selectedTeslaTypeConfigId);
+
+    if (!findedConfig) {
+      this.configuredTeslaService.resetType();
+      this.selectedTeslaTypeConfig = null;
+      return;
+    }
+
+    this.selectedTeslaTypeConfig = findedConfig;
+    this.configuredTeslaService.setSelectedTeslaType(
+      this.selectedTeslaTypeConfig, this.teslaType.towHitch, this.teslaType.yoke);
   }
 
   private initializeTeslaType(): void {
@@ -92,28 +116,6 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     }
 
     return findedConfig;
-  }
-
-  onTeslaTypeConfigChange(selectedTeslaTypeConfigId: string | null): void {
-    if (!selectedTeslaTypeConfigId) {
-      return;
-    }
-
-    if (!this.teslaType) {
-      return;
-    }
-    const selectedTeslaTypeConfigIdNumber = Number(selectedTeslaTypeConfigId);
-    const findedConfig = this.findSelectedConfig(selectedTeslaTypeConfigIdNumber);
-
-    if (!findedConfig) {
-      this.configuredTeslaService.resetType();
-      this.selectedTeslaTypeConfig = null;
-      return;
-    }
-
-    this.selectedTeslaTypeConfig = findedConfig;
-    this.configuredTeslaService.setSelectedTeslaType(
-      this.selectedTeslaTypeConfig, this.teslaType.towHitch, this.teslaType.yoke);
   }
 
   ngOnDestroy(): void {
