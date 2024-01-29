@@ -8,7 +8,7 @@ import { Observable, ReplaySubject, catchError, map, throwError } from 'rxjs';
 })
 export class ModelConfigService {
 
-  private teslaOptioncConfigSubject: ReplaySubject<TeslaModelOptionConfig> | null = null;;
+  private teslaOptioncConfigSubject: ReplaySubject<TeslaModelOptionConfig> | null = null;
   private teslaModelOptionConfig: TeslaModelOptionConfig | null = null;
 
   constructor(
@@ -18,7 +18,6 @@ export class ModelConfigService {
   public getTeslaModelConfig(): Observable<TeslaModelConfig[]> {
     const teslaOptionConfig$ = this.getTeslaModelsByApi();
 
-    const self = this;
     const config$ = teslaOptionConfig$.pipe(
       map((config: TeslaModelConfig[]) => {
         return config;
@@ -69,7 +68,10 @@ export class ModelConfigService {
     const self = this;
     const config$ = teslaOptionConfig$.pipe(
       map((config: TeslaModelOptionConfig) => {
+
+        console.log(config)
         self.teslaModelOptionConfig = config;
+        self.teslaModelOptionConfig.code = code;
         self.setConfig();
         return self.teslaModelOptionConfig;
       }),

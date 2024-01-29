@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Subscription, combineLatest } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Config, TeslaModelOptionConfig } from '../services/models';
 import { ModelConfigService } from '../services/model-config.service';
 import { ConfiguredTeslaService } from '../services/configured-tesla.service';
@@ -17,8 +17,6 @@ import { ConfiguredTesla } from '../services/configured-tesla-model';
   styleUrl: './model-option-config.component.scss'
 })
 export class ModelOptionConfigComponent implements OnInit, OnDestroy {
-  @Input() modelCode?: string;
-
   teslaOptionConfig: TeslaModelOptionConfig | null = null;
   selectedTeslaTypeConfig: Config | null = null;
   configuredTesla: ConfiguredTesla | null = null;
@@ -30,7 +28,7 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     private configuredTeslaService: ConfiguredTeslaService) { }
 
   ngOnInit() {
-    this.initializeTeslaOptionConfig();
+    this.initializeConfiguredTesla();
   }
 
   onTeslaOptionConfigChange(selectedTeslaTypeConfig: string): void {
@@ -63,14 +61,27 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     this.configuredTeslaService.setYoke(this.teslaOptionConfig.yoke);
   }
 
-  private initializeTeslaOptionConfig(): void {
-    if (!this.modelCode) { return; }
-
-    const teslaOptionsConfig$ = this.modelConfigService.getTeslaOptionsConfig(this.modelCode);
+  private initializeConfiguredTesla(): void {
+    const configuredTesla$ = this.configuredTeslaService.getConfiguredTesla();
 
     const self = this;
-    const subscription = teslaOptionsConfig$.subscribe((teslaOptionsConfig) => {
-      self.teslaOptionConfig = teslaOptionsConfig;
+    const subscription = configuredTesla$.subscribe((configuredTesla) => {
+      self.configuredTesla = configuredTesla;
+      this.initializeTeslaOptionConfig();
+    });
+
+    this.subSink.add(subscription);
+  }
+
+
+  private initializeTeslaOptionConfig(): void {
+    if (!this.configuredTesla || !this.configuredTesla.modelCode) { return; }
+    const teslaOptionConfig$ = this.modelConfigService.getTeslaOptionsConfig(this.configuredTesla.modelCode);
+
+    const self = this;
+
+    const subscription = teslaOptionConfig$.subscribe((teslaOptionConfig: TeslaModelOptionConfig) => {
+      self.teslaOptionConfig = teslaOptionConfig;
       this.restoreDataFromCaches();
     });
 
