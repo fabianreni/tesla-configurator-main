@@ -53,12 +53,16 @@ export class ConfiguredTesla {
     reset(): void {
         this.modelCode = null;
         this.modelDescription = null;
-        this.modelColor = null;
+        this.resetColor();
         this.typeConfig = null;
         this.towHitch = false;
         this.yoke = false;
         this.totalCost = 0;
         this.extraCost = 1000;
+    }
+
+    resetColor(): void {
+        this.modelColor = null;
     }
 
     private totalExtraCost(): number {

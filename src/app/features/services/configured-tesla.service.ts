@@ -26,6 +26,11 @@ export class ConfiguredTeslaService {
     this.setConfiguredTesla();
   }
 
+  resetColor(): void {
+    this.configuredTesla.resetColor();
+    this.setConfiguredTesla();
+  }
+
   setSelectedTeslaModel(selectedTeslaModel: TeslaModelConfig): void {
     this.configuredTesla.reset();
     this.configuredTesla.modelCode = selectedTeslaModel.code;
@@ -72,11 +77,6 @@ export class ConfiguredTeslaService {
   }
 
   private setConfiguredTesla(): void {
-    if (this.configuredTesla === null) {
-      return;
-    }
-
     this.configuration.next(this.configuredTesla);
   }
-
 }
