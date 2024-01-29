@@ -34,23 +34,6 @@ export class ConfiguredTesla {
         }
     }
 
-    private totalExtraCost(): number {
-        let totalExtraCost = 0;
-
-        if (this.yoke) {
-            totalExtraCost += this.extraCost;
-        }
-        if (this.towHitch) {
-            totalExtraCost += this.extraCost;
-        }
-
-        return totalExtraCost;
-    }
-
-    private resetTotalPrice(): void {
-        this.totalCost = 0;
-    }
-
     getIsModelConfigSelected(): boolean {
         if (this.modelCode && this.modelColor) {
             return true;
@@ -76,5 +59,22 @@ export class ConfiguredTesla {
         this.yoke = false;
         this.totalCost = 0;
         this.extraCost = 1000;
+    }
+
+    private totalExtraCost(): number {
+        let totalExtraCost = 0;
+
+        if (this.yoke) {
+            totalExtraCost += this.extraCost;
+        }
+        if (this.towHitch) {
+            totalExtraCost += this.extraCost;
+        }
+
+        return totalExtraCost;
+    }
+
+    private resetTotalPrice(): void {
+        this.totalCost = 0;
     }
 }

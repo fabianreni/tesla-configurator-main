@@ -12,14 +12,14 @@ export class ModelConfigService {
     public httpClient: HttpClient
   ) { }
 
-  public getTeslaModelsByApi(): Observable<TeslaModelConfig[]> {
+  getTeslaModelsByApi(): Observable<TeslaModelConfig[]> {
     const url = '/models';
     const rawTeslaModelData$ = this.httpClient.get<TeslaModelConfig[]>(url);
 
     return rawTeslaModelData$;
   }
 
-  public getTeslaTypesDataByApi(code: string): Observable<TeslaModelType> {
+  getTeslaTypesDataByApi(code: string): Observable<TeslaModelType> {
     let url = '/options/:id';
     url = url.replace(':id', code)
     const rawTeslaTypeData$ = this.httpClient.get<TeslaModelType>(url);
