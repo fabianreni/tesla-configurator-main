@@ -66,7 +66,7 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
     this.teslaType.towHitch = this.configuredTesla.towHitch;
     this.teslaType.yoke = this.configuredTesla.yoke;
 
-    const findedConfig = this.findSelectedConfig(this.configuredTesla.typeConfig.id)
+    const findedConfig = this.findSelectedConfig(this.configuredTesla.typeConfig.id);
 
     if (!findedConfig) {
       return;
@@ -84,7 +84,7 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
       return null;
     }
     const findedConfig = this.teslaType.configs.find((teslaTypeConfig: Config) => {
-      return teslaTypeConfig.id == selectedTeslaTypeConfigId
+      return teslaTypeConfig.id == selectedTeslaTypeConfigId;
     });
 
     if (!findedConfig) {
@@ -103,7 +103,7 @@ export class ModelOptionConfigComponent implements OnInit, OnDestroy {
       return;
     }
     const selectedTeslaTypeConfigIdNumber = Number(selectedTeslaTypeConfigId);
-    const findedConfig = this.findSelectedConfig(selectedTeslaTypeConfigIdNumber)
+    const findedConfig = this.findSelectedConfig(selectedTeslaTypeConfigIdNumber);
 
     if (!findedConfig) {
       this.configuredTeslaService.resetType();

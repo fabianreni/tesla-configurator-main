@@ -17,7 +17,7 @@ export const routes: Routes = [
         component: ModelConfigComponent
     },
     {
-        path: 'config/options',
+        path: 'config/option',
         component: ModelOptionConfigComponent,
         canActivate: [ModelConfigGuardService]
     },

@@ -107,7 +107,7 @@ export class ModelConfigComponent implements OnInit, OnDestroy {
   onModelColorChange(selectedColor: string | null): void {
     if (!selectedColor) { return; }
     const findedColor = this.selectedTeslaModel?.colors.find((color: Color) => {
-      return color.code === selectedColor
+      return color.code === selectedColor;
     });
 
     if (!findedColor) {

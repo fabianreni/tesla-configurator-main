@@ -21,7 +21,7 @@ export class ModelConfigService {
 
   getTeslaTypesDataByApi(code: string): Observable<TeslaModelType> {
     let url = '/options/:id';
-    url = url.replace(':id', code)
+    url = url.replace(':id', code);
     const rawTeslaTypeData$ = this.httpClient.get<TeslaModelType>(url);
 
     return rawTeslaTypeData$;

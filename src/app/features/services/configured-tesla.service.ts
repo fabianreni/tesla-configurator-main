@@ -59,7 +59,7 @@ export class ConfiguredTeslaService {
     return false;
   }
 
-  isModelOptionConfigSelected(): boolean {
+  isTypeConfigSelected(): boolean {
     if (this.configuredTesla.typeConfig) {
       return true;
     }
@@ -72,7 +72,7 @@ export class ConfiguredTeslaService {
       return;
     }
 
-    this.configuration.next(this.configuredTesla)
+    this.configuration.next(this.configuredTesla);
   }
 
 }
