@@ -9,12 +9,12 @@
             <h3> Your Tesla {{configuredTesla.modelDescription}}</h3>
 
             <div class="detail-and-price-container">
-                <span> <b>{{configuredTesla.typeConfig?.description}}</b></span>
-                <span> {{configuredTesla.typeConfig?.price | currency: 'USD' }}</span>
+                <span> <b>{{configuredTesla.config?.description}}</b></span>
+                <span> {{configuredTesla.config?.price | currency: 'USD' }}</span>
             </div>
 
-            <span> Range: {{configuredTesla.typeConfig?.range}} miles - Max speed:
-                {{configuredTesla.typeConfig?.speed}}</span>
+            <span> Range: {{configuredTesla.config?.range}} miles - Max speed:
+                {{configuredTesla.config?.speed}}</span>
 
             <div class="detail-and-price-container">
                 <span><b>{{configuredTesla.modelColor?.description}} </b> </span>

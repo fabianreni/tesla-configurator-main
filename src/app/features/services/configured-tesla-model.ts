@@ -1,37 +1,23 @@
-import { Color, Config } from "./models";
+import { Color, Config, TeslaModelConfig } from "./models";
 
 export class ConfiguredTesla {
     modelCode: string | null;
     modelDescription: string | null;
     modelColor: Color | null;
-    typeConfig: Config | null;
+    config: Config | null;
     towHitch: boolean;
     yoke: boolean;
     totalCost: number;
-    extraCost: number;
+    readonly extraCost = 1000;
 
     constructor() {
         this.modelCode = null;
         this.modelDescription = null;
         this.modelColor = null;
-        this.typeConfig = null;
+        this.config = null;
         this.towHitch = false;
         this.yoke = false;
         this.totalCost = 0;
-        this.extraCost = 1000;
-    }
-
-    setTotalPrice(): void {
-        this.resetTotalPrice();
-        this.totalCost += this.totalExtraCost();
-
-        if (this.modelColor) {
-            this.totalCost += this.modelColor.price;
-        }
-
-        if (this.typeConfig) {
-            this.totalCost += this.typeConfig.price;
-        }
     }
 
     getIsModelConfigSelected(): boolean {
@@ -43,7 +29,7 @@ export class ConfiguredTesla {
     }
 
     getIsModelOptionConfigSelected(): boolean {
-        if (this.typeConfig) {
+        if (this.config) {
             return true;
         }
 
@@ -54,15 +40,64 @@ export class ConfiguredTesla {
         this.modelCode = null;
         this.modelDescription = null;
         this.resetColor();
-        this.typeConfig = null;
-        this.towHitch = false;
-        this.yoke = false;
+        this.resetOptionConfig();
         this.totalCost = 0;
-        this.extraCost = 1000;
     }
 
     resetColor(): void {
         this.modelColor = null;
+    }
+
+    resetOptionConfig(): void {
+        this.config = null;
+        this.towHitch = false;
+        this.yoke = false;
+    }
+
+    setModelAndDescription(selectedTeslaModel: TeslaModelConfig): void {
+        this.modelCode = selectedTeslaModel.code;
+        this.modelDescription = selectedTeslaModel.description;
+        this.setTotalPrice();
+    }
+
+    setSelectedTeslaColor(selectedTeslaColor: Color): void {
+        this.modelColor = selectedTeslaColor;
+        this.setTotalPrice();
+    }
+
+    setSelectedTeslaType(selectedTeslaType: Config): void {
+        this.config = selectedTeslaType;
+        this.setTotalPrice();
+    }
+
+    setConfiguredTesla(selectedTeslaType: Config): void {
+        this.config = selectedTeslaType;
+        this.setTotalPrice();
+    }
+
+    setTowHitch(towHitch: boolean): void {
+        this.towHitch = towHitch;
+    }
+
+    setTotalPrice(): void {
+        this.resetTotalPrice();
+        this.totalCost += this.totalExtraCost();
+
+        if (this.modelColor) {
+            this.totalCost += this.modelColor.price;
+        }
+
+        if (this.config) {
+            this.totalCost += this.config.price;
+        }
+    }
+
+    setYoke(yoke: boolean): void {
+        this.yoke = yoke;
+    }
+
+    private resetTotalPrice(): void {
+        this.totalCost = 0;
     }
 
     private totalExtraCost(): number {
@@ -74,11 +109,6 @@ export class ConfiguredTesla {
         if (this.towHitch) {
             totalExtraCost += this.extraCost;
         }
-
         return totalExtraCost;
-    }
-
-    private resetTotalPrice(): void {
-        this.totalCost = 0;
     }
 }

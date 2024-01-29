@@ -10,7 +10,7 @@ export interface Color {
     price: number;
 }
 
-export interface TeslaModelType {
+export interface TeslaModelOptionConfig {
     code: string;
     configs: Config[];
     towHitch: boolean;

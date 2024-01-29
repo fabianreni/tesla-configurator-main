@@ -9,16 +9,32 @@ import { ConfiguredTesla } from './configured-tesla-model';
 export class ConfiguredTeslaService {
 
   private configuration$: Observable<ConfiguredTesla>;
-  private configuration: Subject<ConfiguredTesla> = new ReplaySubject<ConfiguredTesla>(1);
+  private configurationSubject: Subject<ConfiguredTesla> = new ReplaySubject<ConfiguredTesla>(1);
   private configuredTesla: ConfiguredTesla;
 
   constructor() {
-    this.configuration$ = this.configuration.asObservable();
+    this.configuration$ = this.configurationSubject.asObservable();
     this.configuredTesla = new ConfiguredTesla();
   }
 
   getConfiguredTesla(): Observable<ConfiguredTesla> {
     return this.configuration$;
+  }
+
+  isModelConfigSelected(): boolean {
+    if (this.configuredTesla.getIsModelConfigSelected()) {
+      return true;
+    }
+
+    return false;
+  }
+
+  isModelOptionConfigSelected(): boolean {
+    if (this.configuredTesla.getIsModelOptionConfigSelected()) {
+      return true;
+    }
+
+    return false;
   }
 
   resetConfiguredTesla(): void {
@@ -31,52 +47,42 @@ export class ConfiguredTeslaService {
     this.setConfiguredTesla();
   }
 
+  resetOptionConfig(): void {
+    this.configuredTesla.resetOptionConfig();
+    this.setConfiguredTesla();
+  }
+
   setSelectedTeslaModel(selectedTeslaModel: TeslaModelConfig): void {
     this.configuredTesla.reset();
-    this.configuredTesla.modelCode = selectedTeslaModel.code;
-    this.configuredTesla.modelDescription = selectedTeslaModel.description;
-    this.configuredTesla.setTotalPrice();
+    this.configuredTesla.setModelAndDescription(selectedTeslaModel);
+
     this.setConfiguredTesla();
   }
 
   setSelectedTeslaColor(selectedTeslaColor: Color): void {
-    this.configuredTesla.modelColor = selectedTeslaColor;
+    this.configuredTesla.setSelectedTeslaColor(selectedTeslaColor);
+    this.setConfiguredTesla();
+  }
+
+  setSelectedTeslaType(selectedTeslaType: Config): void {
+    this.configuredTesla.setSelectedTeslaType(selectedTeslaType);
+    this.setConfiguredTesla();
+  }
+
+  setTowHitch(towHitch: boolean): void {
+    this.configuredTesla.setTowHitch(towHitch);
+  }
+
+  setYoke(yoke: boolean): void {
+    this.configuredTesla.setYoke(yoke);
+  }
+
+  updatePrice(): void {
     this.configuredTesla.setTotalPrice();
     this.setConfiguredTesla();
-  }
-
-  setSelectedTeslaType(selectedTeslaType: Config, towHitch: boolean, yoke: boolean): void {
-    this.configuredTesla.typeConfig = selectedTeslaType;
-    this.configuredTesla.towHitch = towHitch;
-    this.configuredTesla.yoke = yoke;
-    this.configuredTesla.setTotalPrice();
-    this.setConfiguredTesla();
-  }
-
-  resetType(): void {
-    this.configuredTesla.typeConfig = null;
-    this.configuredTesla.towHitch = false;
-    this.configuredTesla.yoke = false;
-    this.setConfiguredTesla();
-  }
-
-  isModelConfigSelected(): boolean {
-    if (this.configuredTesla.modelCode && this.configuredTesla.modelColor) {
-      return true;
-    }
-
-    return false;
-  }
-
-  isModelOptionConfigSelected(): boolean {
-    if (this.configuredTesla.typeConfig) {
-      return true;
-    }
-
-    return false;
   }
 
   private setConfiguredTesla(): void {
-    this.configuration.next(this.configuredTesla);
+    this.configurationSubject.next(this.configuredTesla);
   }
 }

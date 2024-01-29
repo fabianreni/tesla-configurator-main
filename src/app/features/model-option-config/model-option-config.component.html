@@ -1,13 +1,13 @@
 <div>
     <h1>Step 2: Select your config and options </h1>
 </div>
-<div *ngIf="teslaType && teslaType.configs" class="options-container">
+<div *ngIf="teslaOptionConfig && teslaOptionConfig.configs" class="options-container">
     <div>
         <span> Config:</span>
         <select #configSelect id="configSelect" (change)="onTeslaOptionConfigChange(configSelect.value)">
             <option [value]="null" selected>Select model</option>
-            <ng-container *ngFor="let config of teslaType.configs">
-                <option [value]="config.id" [selected]="configuredTesla?.typeConfig?.id === config.id">
+            <ng-container *ngFor="let config of teslaOptionConfig.configs">
+                <option [value]="config.id" [selected]="configuredTesla?.config?.id === config.id">
                     {{config.description}}</option>
             </ng-container>
         </select>
@@ -18,13 +18,14 @@
             {{selectedTeslaTypeConfig.price | currency: 'USD' }} </span>
     </ng-container>
 
-    <div *ngIf="configuredTesla">
+    <div>
         <span> Tow hitch? </span>
-        <input id="includeTow" type="checkbox" [(ngModel)]="configuredTesla.towHitch">
+        <input id="includeTow" type="checkbox" [(ngModel)]="teslaOptionConfig.towHitch"
+            (change)="onTeslaIncludeTowChange()">
     </div>
 
-    <div *ngIf="configuredTesla">
+    <div>
         <span> Yoke steering wheel?</span>
-        <input id="includeYoke" type="checkbox" [(ngModel)]="configuredTesla.yoke">
+        <input id="includeYoke" type="checkbox" [(ngModel)]="teslaOptionConfig.yoke" (change)="onTeslaYokeChange()">
     </div>
 </div>
