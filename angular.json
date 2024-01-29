@@ -95,6 +95,14 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/tesla-configurator",
+            "netlifyToken": "nfp_qbg8yM9UHZ5GK4Q5Pj8G9j9DtoZRjfAQ5760",
+            "siteId": ""
+          }
         }
       }
     }
